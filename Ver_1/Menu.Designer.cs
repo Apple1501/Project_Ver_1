@@ -39,7 +39,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(102)))), ((int)(((byte)(255)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(193)))), ((int)(((byte)(235)))));
             this.panel1.Controls.Add(this.CheckWork);
             this.panel1.Controls.Add(this.Work);
             this.panel1.Controls.Add(this.CreateNewProcess);
@@ -96,6 +96,7 @@
             this.CreateNewProcess.TabIndex = 1;
             this.CreateNewProcess.Text = "Создать процесс";
             this.CreateNewProcess.UseVisualStyleBackColor = false;
+            this.CreateNewProcess.Click += new System.EventHandler(this.CreateNewProcess_Click);
             // 
             // StopWork
             // 

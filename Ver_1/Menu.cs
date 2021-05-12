@@ -19,7 +19,8 @@ namespace Ver_1
 
         private void StopWork_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //закрытие программы
+            Application.Exit();
         }
 
         private void StopWork_MouseEnter(object sender, EventArgs e)
@@ -45,6 +46,11 @@ namespace Ver_1
                 private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             LastPoint = new Point(e.X, e.Y);
+        }
+
+        private void CreateNewProcess_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
