@@ -94,7 +94,7 @@
             this.CreateNewProcess.Name = "CreateNewProcess";
             this.CreateNewProcess.Size = new System.Drawing.Size(260, 54);
             this.CreateNewProcess.TabIndex = 1;
-            this.CreateNewProcess.Text = "Создать процесс";
+            this.CreateNewProcess.Text = "Создать тех.процесс";
             this.CreateNewProcess.UseVisualStyleBackColor = false;
             this.CreateNewProcess.Click += new System.EventHandler(this.CreateNewProcess_Click);
             // 
