@@ -54,8 +54,13 @@ namespace Ver_1
             {
                 MessageBox.Show("В базе данных нет информации");
             }
-            int a = table.Rows.Count;
 
+            string test = table.Rows[0][0].ToString();
+            comboBoxNameOper.Items.Add(test);
+            
+
+            /* for (int i = 0; i < a; i++)
+             { listOperInfo}*/
 
 
         }

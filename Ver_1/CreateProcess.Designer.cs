@@ -40,11 +40,11 @@
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxNameOper = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listOperInfo = new System.Windows.Forms.ListView();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -59,11 +59,11 @@
             this.panelCreateProcess.Controls.Add(this.dataGridView1);
             this.panelCreateProcess.Controls.Add(this.button3);
             this.panelCreateProcess.Controls.Add(this.label2);
-            this.panelCreateProcess.Controls.Add(this.comboBox1);
+            this.panelCreateProcess.Controls.Add(this.comboBoxNameOper);
             this.panelCreateProcess.Controls.Add(this.label1);
             this.panelCreateProcess.Controls.Add(this.textBox1);
             this.panelCreateProcess.Controls.Add(this.SaveNewProcess);
-            this.panelCreateProcess.Controls.Add(this.listView1);
+            this.panelCreateProcess.Controls.Add(this.listOperInfo);
             this.panelCreateProcess.Location = new System.Drawing.Point(0, -2);
             this.panelCreateProcess.Name = "panelCreateProcess";
             this.panelCreateProcess.Size = new System.Drawing.Size(1239, 763);
@@ -165,13 +165,13 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Название операций";
             // 
-            // comboBox1
+            // comboBoxNameOper
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 116);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(371, 24);
-            this.comboBox1.TabIndex = 5;
+            this.comboBoxNameOper.FormattingEnabled = true;
+            this.comboBoxNameOper.Location = new System.Drawing.Point(3, 116);
+            this.comboBoxNameOper.Name = "comboBoxNameOper";
+            this.comboBoxNameOper.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxNameOper.TabIndex = 5;
             // 
             // label1
             // 
@@ -200,14 +200,14 @@
             this.SaveNewProcess.Text = "Сохранить результат";
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // listOperInfo
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(3, 146);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(371, 412);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listOperInfo.HideSelection = false;
+            this.listOperInfo.Location = new System.Drawing.Point(3, 146);
+            this.listOperInfo.Name = "listOperInfo";
+            this.listOperInfo.Size = new System.Drawing.Size(371, 412);
+            this.listOperInfo.TabIndex = 0;
+            this.listOperInfo.UseCompatibleStateImageBehavior = false;
             // 
             // CreateProcess
             // 
@@ -230,10 +230,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button SaveNewProcess;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listOperInfo;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxNameOper;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button5;
