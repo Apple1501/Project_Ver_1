@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.panelCreateProcess = new System.Windows.Forms.Panel();
+            this.comboBoxTool = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxWorker = new System.Windows.Forms.ComboBox();
+            this.comboBoxPlace = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.LoadInfoOper = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -44,7 +50,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.listOperInfo = new System.Windows.Forms.ListView();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +57,12 @@
             // panelCreateProcess
             // 
             this.panelCreateProcess.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelCreateProcess.Controls.Add(this.comboBoxTool);
+            this.panelCreateProcess.Controls.Add(this.label5);
+            this.panelCreateProcess.Controls.Add(this.label6);
+            this.panelCreateProcess.Controls.Add(this.comboBoxWorker);
+            this.panelCreateProcess.Controls.Add(this.comboBoxPlace);
+            this.panelCreateProcess.Controls.Add(this.label4);
             this.panelCreateProcess.Controls.Add(this.LoadInfoOper);
             this.panelCreateProcess.Controls.Add(this.label3);
             this.panelCreateProcess.Controls.Add(this.button5);
@@ -63,11 +74,64 @@
             this.panelCreateProcess.Controls.Add(this.label1);
             this.panelCreateProcess.Controls.Add(this.textBox1);
             this.panelCreateProcess.Controls.Add(this.SaveNewProcess);
-            this.panelCreateProcess.Controls.Add(this.listOperInfo);
             this.panelCreateProcess.Location = new System.Drawing.Point(0, -2);
             this.panelCreateProcess.Name = "panelCreateProcess";
             this.panelCreateProcess.Size = new System.Drawing.Size(1239, 763);
             this.panelCreateProcess.TabIndex = 0;
+            // 
+            // comboBoxTool
+            // 
+            this.comboBoxTool.FormattingEnabled = true;
+            this.comboBoxTool.Location = new System.Drawing.Point(3, 278);
+            this.comboBoxTool.Name = "comboBoxTool";
+            this.comboBoxTool.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxTool.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(133, 251);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(119, 24);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Инструмент";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(148, 197);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 24);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Рабочий\r\n";
+            // 
+            // comboBoxWorker
+            // 
+            this.comboBoxWorker.FormattingEnabled = true;
+            this.comboBoxWorker.Location = new System.Drawing.Point(3, 224);
+            this.comboBoxWorker.Name = "comboBoxWorker";
+            this.comboBoxWorker.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxWorker.TabIndex = 15;
+            // 
+            // comboBoxPlace
+            // 
+            this.comboBoxPlace.FormattingEnabled = true;
+            this.comboBoxPlace.Location = new System.Drawing.Point(3, 170);
+            this.comboBoxPlace.Name = "comboBoxPlace";
+            this.comboBoxPlace.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxPlace.TabIndex = 14;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(152, 143);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 24);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Участок";
             // 
             // LoadInfoOper
             // 
@@ -118,10 +182,10 @@
             this.IDKODOPE,
             this.NameOp,
             this.Time});
-            this.dataGridView1.Location = new System.Drawing.Point(380, 101);
+            this.dataGridView1.Location = new System.Drawing.Point(470, 552);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(838, 457);
+            this.dataGridView1.Size = new System.Drawing.Size(520, 62);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -148,7 +212,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(783, 450);
+            this.button3.Location = new System.Drawing.Point(53, 577);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(360, 51);
             this.button3.TabIndex = 7;
@@ -159,11 +223,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(95, 89);
+            this.label2.Location = new System.Drawing.Point(143, 89);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 24);
+            this.label2.Size = new System.Drawing.Size(100, 24);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Название операций";
+            this.label2.Text = "Операция";
             // 
             // comboBoxNameOper
             // 
@@ -172,6 +236,7 @@
             this.comboBoxNameOper.Name = "comboBoxNameOper";
             this.comboBoxNameOper.Size = new System.Drawing.Size(371, 24);
             this.comboBoxNameOper.TabIndex = 5;
+            this.comboBoxNameOper.SelectedIndexChanged += new System.EventHandler(this.OperNameSelected);
             // 
             // label1
             // 
@@ -200,15 +265,6 @@
             this.SaveNewProcess.Text = "Сохранить результат";
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             // 
-            // listOperInfo
-            // 
-            this.listOperInfo.HideSelection = false;
-            this.listOperInfo.Location = new System.Drawing.Point(3, 146);
-            this.listOperInfo.Name = "listOperInfo";
-            this.listOperInfo.Size = new System.Drawing.Size(371, 412);
-            this.listOperInfo.TabIndex = 0;
-            this.listOperInfo.UseCompatibleStateImageBehavior = false;
-            // 
             // CreateProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -230,7 +286,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button SaveNewProcess;
-        private System.Windows.Forms.ListView listOperInfo;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxNameOper;
@@ -243,5 +298,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.Button LoadInfoOper;
+        private System.Windows.Forms.ComboBox comboBoxTool;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxWorker;
+        private System.Windows.Forms.ComboBox comboBoxPlace;
+        private System.Windows.Forms.Label label4;
     }
 }

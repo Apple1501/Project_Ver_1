@@ -17,7 +17,9 @@ namespace Ver_1
         {
             InitializeComponent();
         }
-
+        DB db = new DB();
+               
+        MySqlDataAdapter adapter = new MySqlDataAdapter();
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -31,14 +33,11 @@ namespace Ver_1
         //Загружаем данные об операция из базы данных
         private void LoadInfoOper_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
+            //формируем запрос к базе данных
+            MySqlCommand command = new MySqlCommand("SELECT OperName FROM `mpmopername`", db.getConnection());
+            //MySqlCommand command = new MySqlCommand("SELECT idOperation,idPlace,idWorker,idTool,DocName FROM `mpmoperation`",db.getConnection());
 
             DataTable table = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            //формируем запрос к базе данных
-            MySqlCommand command = new MySqlCommand("SELECT OperName,WorkerName,ToolName FROM `mpmoperation`",db.getConnection());
-
             //указываем какой именно запрос будет выполняться к базе данных
             adapter.SelectCommand = command;
 
@@ -55,14 +54,48 @@ namespace Ver_1
                 MessageBox.Show("В базе данных нет информации");
             }
 
-            string test = table.Rows[0][0].ToString();
-            comboBoxNameOper.Items.Add(test);
-            
-
-            /* for (int i = 0; i < a; i++)
-             { listOperInfo}*/
-
+            //Rows[0][0]-[строка][столбец]
+            for (int i=0;i< table.Rows.Count;i++)
+            {
+                //вывод названий операций в меню
+                string test = table.Rows[i][0].ToString();
+                comboBoxNameOper.Items.Add(test);
+            }
 
         }
+
+        private void OperNameSelected(object sender, EventArgs e)
+        {
+            string selectedOperName = comboBoxNameOper.SelectedItem.ToString();
+            //формируем запрос по выбранному пункту в бд
+            MySqlCommand command = new MySqlCommand("SELECT idOperation FROM `mpmopername` WHERE OperName=@SOperName", db.getConnection());
+            //заглушка
+            command.Parameters.Add("@SOperName", MySqlDbType.VarChar).Value = selectedOperName;
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = command;
+
+            DataTable table = new DataTable();
+            DataTable tableInfo = new DataTable();
+            adapter.Fill(table);
+
+            int idOperName = Int32.Parse(table.Rows[0][0].ToString());
+
+            //выбор участка, на котором выполяется операция           
+            MySqlCommand commandInfo = new MySqlCommand("SELECT DISTINCT idPlace FROM `mpmoperation` WHERE idOperation=@IdOp", db.getConnection());
+            commandInfo.Parameters.Add("@IdOp", MySqlDbType.Int32).Value = idOperName;
+
+            adapter.SelectCommand = commandInfo;
+           
+            adapter.Fill(tableInfo);
+            if (tableInfo.Rows.Count < 0)
+            {
+                MessageBox.Show("Данных по выбранной операции нет в базе данных");
+            }
+
+            string[] stringPlace = new string[6];
+
+        }
+
     }
 }
