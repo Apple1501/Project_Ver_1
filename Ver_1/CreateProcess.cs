@@ -20,7 +20,13 @@ namespace Ver_1
         DB db = new DB();
                
         MySqlDataAdapter adapter = new MySqlDataAdapter();
+        //код выбранной операции
+        DataTable table = new DataTable();
+        //код и название инструмента по выбранной операции и участку 
+        DataTable tableToolName = new DataTable();
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        
         {
 
         }
@@ -65,6 +71,7 @@ namespace Ver_1
 
         }
 
+        //выбор операции и получения данных по выбранной операции
         private void OperNameSelected(object sender, EventArgs e)
         {
             string selectedOperName = comboBoxNameOper.SelectedItem.ToString();
@@ -76,10 +83,13 @@ namespace Ver_1
             //Выполнение запроса к бд
             adapter.SelectCommand = command;
 
-            DataTable table = new DataTable();
+            //чистка информации о коде операции
+            table.Clear();
+
             DataTable tableInfo = new DataTable();
             DataTable tablePlace = new DataTable();
             DataTable tableWorker = new DataTable();
+
             adapter.Fill(table);
 
             int idOperName = Int32.Parse(table.Rows[0][0].ToString());
@@ -140,11 +150,104 @@ namespace Ver_1
                         comboBoxPlace.Items.Add(stringPlace[i]);
                     }
 
+                    int a = 0;
+
                 }             
 
             }
                
         }
 
+        //вывод информацию об инструментах на основе выбора участка
+        private void PlaceNameSelected(object sender, EventArgs e)
+        {
+            string selectedPlaceName = comboBoxPlace.SelectedItem.ToString();
+            //формируем запрос по выбранному пункту в бд
+            MySqlCommand commandPlaceName = new MySqlCommand("SELECT idPlace,PlaceName FROM `mpmplaceinfo` WHERE PlaceName=@SPlaceName", db.getConnection());
+            //заглушка
+            commandPlaceName.Parameters.Add("@SPlaceName", MySqlDbType.VarChar).Value = selectedPlaceName;
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = commandPlaceName;
+
+            DataTable tablePlaceid = new DataTable();
+
+            DataTable tableToolid = new DataTable();
+
+            tableToolName.Clear();
+       
+            adapter.Fill(tablePlaceid);
+
+            //код выбранного участка
+            int Placeid = Int32.Parse(tablePlaceid.Rows[0][0].ToString());
+
+            //код выбранной операции 
+            int idOper = Int32.Parse(table.Rows[0][0].ToString());
+
+            //Получения кода инструмента и названия документа
+            MySqlCommand commandidTool = new MySqlCommand("SELECT DISTINCT idTool FROM `mpmoperation` WHERE idPlace=@Placeid AND idOperation=@idOper", db.getConnection());
+          
+            //заглушка
+            commandidTool.Parameters.Add("@Placeid", MySqlDbType.Int32).Value = Placeid;
+            commandidTool.Parameters.Add("@idOper", MySqlDbType.Int32).Value = idOper;
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = commandidTool;
+
+            
+            adapter.Fill(tableToolid);
+
+            if (tableToolid.Rows.Count == 0)
+            {
+                MessageBox.Show("Данных по выбранному участку не найдены");
+            }
+            else
+            {
+
+                comboBoxTool.Items.Clear();
+               // comboBoxTool.Items[0].Remove();
+                //получения названия инструмента
+                for (int i = 0; i < tableToolid.Rows.Count; i++)
+                {
+                    //код инструмента
+                    int idTool = Int32.Parse(tableToolid.Rows[i][0].ToString());
+
+                    //Получения кода инструмента и названия документа
+                    MySqlCommand commandToolName = new MySqlCommand("SELECT * FROM `mpmtoolinfo` WHERE idTool=@idTool", db.getConnection());
+
+                    //заглушка
+                    commandToolName.Parameters.Add("@idTool", MySqlDbType.Int32).Value = idTool;
+
+                    //Выполнение запроса к бд
+                    adapter.SelectCommand = commandToolName;
+
+                    adapter.Fill(tableToolName);
+
+                    if (tableToolName.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Данные по инструменту не найдены");
+                    }
+
+                    else
+                    {
+                        comboBoxTool.Items.Add(tableToolName.Rows[i][1].ToString());
+                    }
+
+                }
+
+            }
+
+        }
+
+        //выбор документа по ранее выбранным данным
+        private void ToolNameSelected(object sender, EventArgs e)
+        {
+            //считываем название инструмента 
+            string selectedToolName = comboBoxTool.SelectedItem.ToString();
+
+            tableToolName
+
+
+        }
     }
 }

@@ -48,6 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxDocName = new System.Windows.Forms.ComboBox();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +57,8 @@
             // panelCreateProcess
             // 
             this.panelCreateProcess.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelCreateProcess.Controls.Add(this.comboBoxDocName);
+            this.panelCreateProcess.Controls.Add(this.label7);
             this.panelCreateProcess.Controls.Add(this.comboBoxTool);
             this.panelCreateProcess.Controls.Add(this.label5);
             this.panelCreateProcess.Controls.Add(this.label6);
@@ -82,6 +86,7 @@
             this.comboBoxTool.Name = "comboBoxTool";
             this.comboBoxTool.Size = new System.Drawing.Size(371, 24);
             this.comboBoxTool.TabIndex = 18;
+            this.comboBoxTool.SelectedIndexChanged += new System.EventHandler(this.ToolNameSelected);
             // 
             // label5
             // 
@@ -97,7 +102,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(148, 197);
+            this.label6.Location = new System.Drawing.Point(148, 143);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 24);
             this.label6.TabIndex = 16;
@@ -106,7 +111,7 @@
             // comboBoxWorker
             // 
             this.comboBoxWorker.FormattingEnabled = true;
-            this.comboBoxWorker.Location = new System.Drawing.Point(3, 224);
+            this.comboBoxWorker.Location = new System.Drawing.Point(3, 170);
             this.comboBoxWorker.Name = "comboBoxWorker";
             this.comboBoxWorker.Size = new System.Drawing.Size(371, 24);
             this.comboBoxWorker.TabIndex = 15;
@@ -114,16 +119,17 @@
             // comboBoxPlace
             // 
             this.comboBoxPlace.FormattingEnabled = true;
-            this.comboBoxPlace.Location = new System.Drawing.Point(3, 170);
+            this.comboBoxPlace.Location = new System.Drawing.Point(3, 224);
             this.comboBoxPlace.Name = "comboBoxPlace";
             this.comboBoxPlace.Size = new System.Drawing.Size(371, 24);
             this.comboBoxPlace.TabIndex = 14;
+            this.comboBoxPlace.SelectedIndexChanged += new System.EventHandler(this.PlaceNameSelected);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(152, 143);
+            this.label4.Location = new System.Drawing.Point(149, 197);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 24);
             this.label4.TabIndex = 13;
@@ -153,7 +159,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(3, 322);
+            this.button4.Location = new System.Drawing.Point(3, 364);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(371, 51);
             this.button4.TabIndex = 9;
@@ -241,6 +247,24 @@
             this.SaveNewProcess.Text = "Сохранить результат";
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(143, 305);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 24);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Документ";
+            // 
+            // comboBoxDocName
+            // 
+            this.comboBoxDocName.FormattingEnabled = true;
+            this.comboBoxDocName.Location = new System.Drawing.Point(3, 332);
+            this.comboBoxDocName.Name = "comboBoxDocName";
+            this.comboBoxDocName.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxDocName.TabIndex = 20;
+            // 
             // CreateProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -278,5 +302,7 @@
         private System.Windows.Forms.ComboBox comboBoxWorker;
         private System.Windows.Forms.ComboBox comboBoxPlace;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxDocName;
+        private System.Windows.Forms.Label label7;
     }
 }
