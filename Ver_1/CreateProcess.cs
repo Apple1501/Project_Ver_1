@@ -16,6 +16,7 @@ namespace Ver_1
         public CreateProcess()
         {
             InitializeComponent();
+            this.panelCreateProcess.AutoSize = true;
         }
         DB db = new DB();
         
@@ -27,10 +28,8 @@ namespace Ver_1
 
         //код и название выбранного участка 
         DataTable tablePlaceid = new DataTable();
-
-        int Number = 0;
+          
      
-
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -309,7 +308,7 @@ namespace Ver_1
             Place =comboBoxPlace.Text.ToString();
             if (Place == "")
             {
-                MessageBox.Show("Проверьте данныех");
+                MessageBox.Show("Проверьте данные");
 
             }
             DocName = comboBoxDocName.Text.ToString();
@@ -347,6 +346,44 @@ namespace Ver_1
         {
             int number = e.RowIndex;
             dataGridView1.Rows.RemoveAt(number);
+
+        }
+
+        //сохранение данных в базу данных
+        private void SaveNewProcess_Click(object sender, EventArgs e)
+        {
+            string NameProject=textBoxNameObject.Text;
+
+            if (NameProject == "")
+            {
+                MessageBox.Show("Проверьте название объекта");
+            }
+            else
+            {
+                //создание нового тех. процесса в бд. Запись в таблицу связи продукта и тех процесса
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandProduct = new MySqlCommand("INSERT INTO `mpmproduct` (`ProductName`) VALUES (@Name);", db.getConnection());
+
+                //заглушка
+                commandProduct.Parameters.Add("@Name", MySqlDbType.VarChar).Value = textBoxNameObject.Text; ;
+
+                db.OpenConnection();
+
+                //проверка выполнения запроса
+                if (commandProduct.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Данные по объекту записаны в бд");
+                }
+                else
+                {
+                    MessageBox.Show("Данные не были записаны. Такой тех.процесс уже существует");
+                }
+                db.CloseConnection();
+               
+
+            }
+
+
 
         }
     }

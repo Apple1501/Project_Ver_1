@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelCreateProcess = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.comboBoxDocName = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxTool = new System.Windows.Forms.ComboBox();
@@ -41,12 +42,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonPlusOper = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxNameOper = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.IDKODOPE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +50,11 @@
             this.DocName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxNameOper = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxNameObject = new System.Windows.Forms.TextBox();
+            this.SaveNewProcess = new System.Windows.Forms.Button();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -78,14 +78,27 @@
             this.panelCreateProcess.Controls.Add(this.label2);
             this.panelCreateProcess.Controls.Add(this.comboBoxNameOper);
             this.panelCreateProcess.Controls.Add(this.label1);
-            this.panelCreateProcess.Controls.Add(this.textBox1);
+            this.panelCreateProcess.Controls.Add(this.textBoxNameObject);
             this.panelCreateProcess.Controls.Add(this.SaveNewProcess);
-            this.panelCreateProcess.Location = new System.Drawing.Point(0, -2);
+            this.panelCreateProcess.Location = new System.Drawing.Point(3, 12);
             this.panelCreateProcess.Name = "panelCreateProcess";
-            this.panelCreateProcess.Size = new System.Drawing.Size(1445, 767);
+            this.panelCreateProcess.Size = new System.Drawing.Size(1445, 749);
             this.panelCreateProcess.TabIndex = 0;
             this.panelCreateProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseDown);
             this.panelCreateProcess.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseMove);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(1368, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 25);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "X";
+            this.label8.Click += new System.EventHandler(this.StopWork_Click);
             // 
             // comboBoxDocName
             // 
@@ -214,65 +227,6 @@
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(146, 126);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 24);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Операция";
-            // 
-            // comboBoxNameOper
-            // 
-            this.comboBoxNameOper.FormattingEnabled = true;
-            this.comboBoxNameOper.Location = new System.Drawing.Point(6, 153);
-            this.comboBoxNameOper.Name = "comboBoxNameOper";
-            this.comboBoxNameOper.Size = new System.Drawing.Size(371, 24);
-            this.comboBoxNameOper.TabIndex = 5;
-            this.comboBoxNameOper.SelectedIndexChanged += new System.EventHandler(this.OperNameSelected);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(110, 470);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 24);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Название объекта";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 507);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(371, 22);
-            this.textBox1.TabIndex = 3;
-            // 
-            // SaveNewProcess
-            // 
-            this.SaveNewProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SaveNewProcess.Location = new System.Drawing.Point(6, 546);
-            this.SaveNewProcess.Name = "SaveNewProcess";
-            this.SaveNewProcess.Size = new System.Drawing.Size(371, 51);
-            this.SaveNewProcess.TabIndex = 2;
-            this.SaveNewProcess.Text = "Сохранить результат";
-            this.SaveNewProcess.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(1368, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 25);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "X";
-            this.label8.Click += new System.EventHandler(this.StopWork_Click);
-            // 
             // IDKODOPE
             // 
             this.IDKODOPE.HeaderText = "Код операции";
@@ -320,6 +274,54 @@
             this.Delete.Text = "Удалить";
             this.Delete.ToolTipText = "Удалить";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(146, 126);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 24);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Операция";
+            // 
+            // comboBoxNameOper
+            // 
+            this.comboBoxNameOper.FormattingEnabled = true;
+            this.comboBoxNameOper.Location = new System.Drawing.Point(6, 153);
+            this.comboBoxNameOper.Name = "comboBoxNameOper";
+            this.comboBoxNameOper.Size = new System.Drawing.Size(371, 24);
+            this.comboBoxNameOper.TabIndex = 5;
+            this.comboBoxNameOper.SelectedIndexChanged += new System.EventHandler(this.OperNameSelected);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(110, 464);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(175, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Название объекта";
+            // 
+            // textBoxNameObject
+            // 
+            this.textBoxNameObject.Location = new System.Drawing.Point(6, 491);
+            this.textBoxNameObject.Multiline = true;
+            this.textBoxNameObject.Name = "textBoxNameObject";
+            this.textBoxNameObject.Size = new System.Drawing.Size(371, 34);
+            this.textBoxNameObject.TabIndex = 3;
+            // 
+            // SaveNewProcess
+            // 
+            this.SaveNewProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SaveNewProcess.Location = new System.Drawing.Point(6, 546);
+            this.SaveNewProcess.Name = "SaveNewProcess";
+            this.SaveNewProcess.Size = new System.Drawing.Size(371, 51);
+            this.SaveNewProcess.TabIndex = 2;
+            this.SaveNewProcess.Text = "Сохранить результат";
+            this.SaveNewProcess.UseVisualStyleBackColor = true;
+            this.SaveNewProcess.Click += new System.EventHandler(this.SaveNewProcess_Click);
+            // 
             // CreateProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -340,7 +342,7 @@
 
         private System.Windows.Forms.Panel panelCreateProcess;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxNameObject;
         private System.Windows.Forms.Button SaveNewProcess;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxNameOper;
