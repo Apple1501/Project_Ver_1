@@ -18,21 +18,17 @@ namespace Ver_1
             InitializeComponent();
         }
         DB db = new DB();
-               
+        
         MySqlDataAdapter adapter = new MySqlDataAdapter();
         //код выбранной операции
         DataTable table = new DataTable();
         //код и название инструмента по выбранной операции и участку 
         DataTable tableToolName = new DataTable();
 
-
+        //код и название выбранного участка 
         DataTable tablePlaceid = new DataTable();
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        
-        {
-
-        }
+     
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -56,7 +52,7 @@ namespace Ver_1
             //проверка, что в базе данных есть информация
             if (table.Rows.Count > 0)
             {
-                MessageBox.Show("Данные из базы данных загружены");
+                MessageBox.Show("Соединение с базой данных получено");
                 //Rows[0][0]-[строка][столбец]
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
@@ -294,9 +290,35 @@ namespace Ver_1
             }
            
 
+        }
 
+        private void buttonPlusOper_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add("Ivanov I.I.", 25, "New York");
+            dataGridView1.Rows.Add("Petrenko P.P.", 38, "Moscow");
+        }
 
+        private void StopWork_Click(object sender, EventArgs e)
+        {
+            //закрытие программы
+            Application.Exit();
+        }
+        Point LastPoint;
+        private void panelCreateProcess_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+                //код для перемещение главного меню 
+                if (e.Button == MouseButtons.Left)
+                {
+                    this.Left += e.X - LastPoint.X;
+                    this.Top += e.Y - LastPoint.Y;
+                }
+            
+        }
 
+        private void panelCreateProcess_MouseDown(object sender, MouseEventArgs e)
+        {
+            LastPoint = new Point(e.X, e.Y);
         }
     }
 }
