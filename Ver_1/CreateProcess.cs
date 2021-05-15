@@ -25,6 +25,9 @@ namespace Ver_1
         //код и название инструмента по выбранной операции и участку 
         DataTable tableToolName = new DataTable();
 
+
+        DataTable tablePlaceid = new DataTable();
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         
         {
@@ -170,7 +173,7 @@ namespace Ver_1
             //Выполнение запроса к бд
             adapter.SelectCommand = commandPlaceName;
 
-            DataTable tablePlaceid = new DataTable();
+            tablePlaceid.Clear();
 
             DataTable tableToolid = new DataTable();
 
@@ -244,8 +247,54 @@ namespace Ver_1
         {
             //считываем название инструмента 
             string selectedToolName = comboBoxTool.SelectedItem.ToString();
+            int idTool=0;
+            for (int i = 0; i < tableToolName.Rows.Count; i++)
+            {
+                if (Equals(tableToolName.Rows[i][1].ToString(), selectedToolName) == true)
+                {
+                    idTool = Int32.Parse(tableToolName.Rows[i][0].ToString());
+                }
 
-            tableToolName
+            }
+
+            if (idTool == 0)
+            {
+                MessageBox.Show("Данные по документу не найдены");
+
+            }
+
+            else
+            {
+                comboBoxDocName.Items.Clear();
+
+                DataTable tableDocName = new DataTable();
+
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandDocName = new MySqlCommand("SELECT DocName FROM `mpmoperation` WHERE idOperation = @idOper AND idPlace = @idPlace AND idTool=@idT", db.getConnection());
+
+                //заглушка
+                commandDocName.Parameters.Add("@idOper", MySqlDbType.Int32).Value = Int32.Parse(table.Rows[0][0].ToString());
+                commandDocName.Parameters.Add("@idPlace", MySqlDbType.Int32).Value = Int32.Parse(tablePlaceid.Rows[0][0].ToString());
+                commandDocName.Parameters.Add("@idT", MySqlDbType.Int32).Value = idTool;
+
+                //Выполнение запроса к бд
+                adapter.SelectCommand = commandDocName;
+
+                adapter.Fill(tableDocName);
+
+                if (tableDocName.Rows.Count == 0)
+                {
+                    MessageBox.Show("Данные по документу не найдены");
+
+                }
+                else
+                {
+                    comboBoxDocName.Items.Add(tableDocName.Rows[0][0].ToString());
+                }
+            }
+           
+
+
 
 
         }
