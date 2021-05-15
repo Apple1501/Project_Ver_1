@@ -46,7 +46,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.Nomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label8 = new System.Windows.Forms.Label();
             this.IDKODOPE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +55,6 @@
             this.DocName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label8 = new System.Windows.Forms.Label();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,7 +82,7 @@
             this.panelCreateProcess.Controls.Add(this.SaveNewProcess);
             this.panelCreateProcess.Location = new System.Drawing.Point(0, -2);
             this.panelCreateProcess.Name = "panelCreateProcess";
-            this.panelCreateProcess.Size = new System.Drawing.Size(1398, 722);
+            this.panelCreateProcess.Size = new System.Drawing.Size(1445, 767);
             this.panelCreateProcess.TabIndex = 0;
             this.panelCreateProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseDown);
             this.panelCreateProcess.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseMove);
@@ -197,9 +196,9 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Nomer,
             this.IDKODOPE,
             this.NameOp,
             this.Time,
@@ -208,11 +207,12 @@
             this.DocName,
             this.Hour,
             this.Delete});
-            this.dataGridView1.Location = new System.Drawing.Point(392, 72);
+            this.dataGridView1.Location = new System.Drawing.Point(395, 72);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1003, 525);
+            this.dataGridView1.Size = new System.Drawing.Size(1000, 525);
             this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label2
             // 
@@ -260,11 +260,18 @@
             this.SaveNewProcess.Text = "Сохранить результат";
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             // 
-            // Nomer
+            // label8
             // 
-            this.Nomer.HeaderText = "№";
-            this.Nomer.Name = "Nomer";
-            this.Nomer.Width = 50;
+            this.label8.AutoSize = true;
+            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(1368, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 25);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "X";
+            this.label8.Click += new System.EventHandler(this.StopWork_Click);
             // 
             // IDKODOPE
             // 
@@ -302,9 +309,9 @@
             // 
             // Hour
             // 
-            this.Hour.HeaderText = "Длительность";
+            this.Hour.HeaderText = "Длительность(час)";
             this.Hour.Name = "Hour";
-            this.Hour.Width = 105;
+            this.Hour.Width = 145;
             // 
             // Delete
             // 
@@ -312,19 +319,6 @@
             this.Delete.Name = "Delete";
             this.Delete.Text = "Удалить";
             this.Delete.ToolTipText = "Удалить";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(1368, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 25);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "X";
-            this.label8.Click += new System.EventHandler(this.StopWork_Click);
             // 
             // CreateProcess
             // 
@@ -362,7 +356,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxDocName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nomer;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDKODOPE;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
@@ -371,6 +365,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DocName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hour;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
-        private System.Windows.Forms.Label label8;
     }
 }

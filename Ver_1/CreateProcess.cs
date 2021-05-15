@@ -28,6 +28,7 @@ namespace Ver_1
         //код и название выбранного участка 
         DataTable tablePlaceid = new DataTable();
 
+        int Number = 0;
      
 
         private void button1_Click(object sender, EventArgs e)
@@ -294,8 +295,29 @@ namespace Ver_1
 
         private void buttonPlusOper_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Add("Ivanov I.I.", 25, "New York");
-            dataGridView1.Rows.Add("Petrenko P.P.", 38, "Moscow");
+            string NameOper, Worker, Place, DocName, Tool;
+
+            //считывание выбранных данных
+            NameOper = comboBoxNameOper.Text.ToString();
+            if (NameOper == "")
+            {
+                MessageBox.Show("Проверьте данныех");
+
+            }
+            Worker=comboBoxWorker.Text.ToString();
+           
+            Place =comboBoxPlace.Text.ToString();
+            if (Place == "")
+            {
+                MessageBox.Show("Проверьте данныех");
+
+            }
+            DocName = comboBoxDocName.Text.ToString();
+            
+            Tool =comboBoxTool.Text.ToString();
+            
+            dataGridView1.Rows.Add(table.Rows[0][0].ToString(),NameOper,Place,Worker,Tool, DocName);
+            
         }
 
         private void StopWork_Click(object sender, EventArgs e)
@@ -319,6 +341,13 @@ namespace Ver_1
         private void panelCreateProcess_MouseDown(object sender, MouseEventArgs e)
         {
             LastPoint = new Point(e.X, e.Y);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int number = e.RowIndex;
+            dataGridView1.Rows.RemoveAt(number);
+
         }
     }
 }
