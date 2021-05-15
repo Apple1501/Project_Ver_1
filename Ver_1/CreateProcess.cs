@@ -48,19 +48,20 @@ namespace Ver_1
             if (table.Rows.Count > 0)
             {
                 MessageBox.Show("Данные из базы данных загружены");
+                //Rows[0][0]-[строка][столбец]
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    //вывод названий операций в меню
+                    string test = table.Rows[i][0].ToString();
+                    comboBoxNameOper.Items.Add(test);
+                }
             }
             else
             {
                 MessageBox.Show("В базе данных нет информации");
-            }
 
-            //Rows[0][0]-[строка][столбец]
-            for (int i=0;i< table.Rows.Count;i++)
-            {
-                //вывод названий операций в меню
-                string test = table.Rows[i][0].ToString();
-                comboBoxNameOper.Items.Add(test);
             }
+                       
 
         }
 
@@ -77,24 +78,72 @@ namespace Ver_1
 
             DataTable table = new DataTable();
             DataTable tableInfo = new DataTable();
+            DataTable tablePlace = new DataTable();
+            DataTable tableWorker = new DataTable();
             adapter.Fill(table);
 
             int idOperName = Int32.Parse(table.Rows[0][0].ToString());
 
-            //выбор участка, на котором выполяется операция           
-            MySqlCommand commandInfo = new MySqlCommand("SELECT DISTINCT idPlace FROM `mpmoperation` WHERE idOperation=@IdOp", db.getConnection());
-            commandInfo.Parameters.Add("@IdOp", MySqlDbType.Int32).Value = idOperName;
+            //выбор участка, на котором  может выполяется операция по коду операции          
+            MySqlCommand commandPlace = new MySqlCommand("SELECT DISTINCT idPlace,idWorker FROM `mpmoperation` WHERE idOperation=@IdOp", db.getConnection());
+            commandPlace.Parameters.Add("@IdOp", MySqlDbType.Int32).Value = idOperName;
 
-            adapter.SelectCommand = commandInfo;
-           
+            adapter.SelectCommand = commandPlace;
+
             adapter.Fill(tableInfo);
-            if (tableInfo.Rows.Count < 0)
+            if (tableInfo.Rows.Count == 0)
             {
                 MessageBox.Show("Данных по выбранной операции нет в базе данных");
             }
+            else
+            {
+                //рабочий на операцию не зависит от участка 
+                int worker = Int32.Parse(tableInfo.Rows[0][1].ToString());
 
-            string[] stringPlace = new string[6];
+                //выбор участка, на котором  может выполяется операция по коду операции          
+                MySqlCommand commandWorker = new MySqlCommand("SELECT* FROM `mpmworkerinfo` WHERE idWorker=@IdW", db.getConnection());
+                commandWorker.Parameters.Add("@IdW", MySqlDbType.Int32).Value = worker;
 
+                adapter.SelectCommand = commandWorker;
+
+                adapter.Fill(tableWorker);
+                if (tableInfo.Rows.Count == 0)
+                {
+                    MessageBox.Show("Данных по выбранному рабочему нет в базе данных");
+                }
+
+                else
+                {
+                    comboBoxWorker.Items.Clear();
+                    //вывод названий операций в меню
+                    string test = tableWorker.Rows[0][1].ToString();
+                    comboBoxWorker.Items.Add(test);
+
+                    comboBoxPlace.Items.Clear();
+
+                    //массив для названия участка
+                    string[] stringPlace = new string[tableInfo.Rows.Count];
+
+                    for (int i = 0; i < tableInfo.Rows.Count; i++)
+                    {
+                        int idPlace = Int32.Parse(tableInfo.Rows[i][0].ToString());
+
+                        MySqlCommand commandPlaceName = new MySqlCommand("SELECT idPlace,PlaceName FROM `mpmplaceinfo` WHERE idPlace=@IdPlace", db.getConnection());
+                        commandPlaceName.Parameters.Add("@IdPlace", MySqlDbType.Int32).Value = idPlace;
+
+                        adapter.SelectCommand = commandPlaceName;
+
+                        adapter.Fill(tablePlace);
+
+                        //вывод названий участка в меню
+                        stringPlace[i] = tablePlace.Rows[i][1].ToString();
+                        comboBoxPlace.Items.Add(stringPlace[i]);
+                    }
+
+                }             
+
+            }
+               
         }
 
     }
