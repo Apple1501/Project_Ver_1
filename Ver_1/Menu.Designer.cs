@@ -59,7 +59,7 @@
             this.CheckWork.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(102)))), ((int)(((byte)(255)))));
             this.CheckWork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(26)))), ((int)(((byte)(255)))));
             this.CheckWork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CheckWork.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold);
+            this.CheckWork.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckWork.Location = new System.Drawing.Point(59, 213);
             this.CheckWork.Name = "CheckWork";
             this.CheckWork.Size = new System.Drawing.Size(260, 54);
@@ -79,7 +79,7 @@
             this.Work.Name = "Work";
             this.Work.Size = new System.Drawing.Size(260, 54);
             this.Work.TabIndex = 2;
-            this.Work.Text = "Оптимизация процессов";
+            this.Work.Text = "Планирование";
             this.Work.UseVisualStyleBackColor = false;
             // 
             // CreateNewProcess
@@ -89,7 +89,7 @@
             this.CreateNewProcess.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(102)))), ((int)(((byte)(255)))));
             this.CreateNewProcess.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(26)))), ((int)(((byte)(255)))));
             this.CreateNewProcess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateNewProcess.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreateNewProcess.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateNewProcess.Location = new System.Drawing.Point(59, 35);
             this.CreateNewProcess.Name = "CreateNewProcess";
             this.CreateNewProcess.Size = new System.Drawing.Size(260, 54);

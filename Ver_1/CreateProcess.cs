@@ -66,8 +66,7 @@ namespace Ver_1
                 MessageBox.Show("В базе данных нет информации");
 
             }
-                       
-
+         
         }
 
         //выбор операции и получения данных по выбранной операции
@@ -492,6 +491,12 @@ namespace Ver_1
 
         }
 
+        private void label9_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Menu menupanel = new Menu();
+            menupanel.Show();
 
+        }
     }
 }

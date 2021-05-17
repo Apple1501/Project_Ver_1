@@ -15,6 +15,10 @@ namespace Ver_1
         public Menu()
         {
             InitializeComponent();
+            this.CreateNewProcess.AutoSize = true;
+            this.Work.AutoSize = true;
+            this.CheckWork.AutoSize = true;
+
         }
 
         private void StopWork_Click(object sender, EventArgs e)
@@ -50,6 +54,9 @@ namespace Ver_1
 
         private void CreateNewProcess_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            CreateProcess CreateProcess = new CreateProcess();
+            CreateProcess.Show();
 
         }
     }
