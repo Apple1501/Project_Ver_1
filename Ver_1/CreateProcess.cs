@@ -298,25 +298,25 @@ namespace Ver_1
 
             //считывание выбранных данных
             NameOper = comboBoxNameOper.Text.ToString();
-            if (NameOper == "")
+            Place = comboBoxPlace.Text.ToString();
+            if (NameOper == "" && NameOper == "")
             {
-                MessageBox.Show("Проверьте данныех");
+                MessageBox.Show("Проверьте данныe");
 
             }
-            Worker=comboBoxWorker.Text.ToString();
-           
-            Place =comboBoxPlace.Text.ToString();
-            if (Place == "")
+            
+            else
             {
-                MessageBox.Show("Проверьте данные");
+                Worker = comboBoxWorker.Text.ToString();
 
+                Place = comboBoxPlace.Text.ToString();
+
+                DocName = comboBoxDocName.Text.ToString();
+
+                Tool = comboBoxTool.Text.ToString();
+
+                dataGridView1.Rows.Add(table.Rows[0][0].ToString(), NameOper, Place, Worker, Tool, DocName, 1);
             }
-            DocName = comboBoxDocName.Text.ToString();
-            
-            Tool =comboBoxTool.Text.ToString();
-            
-            dataGridView1.Rows.Add(table.Rows[0][0].ToString(),NameOper,Place,Worker,Tool, DocName);
-            
         }
 
         private void StopWork_Click(object sender, EventArgs e)
@@ -365,7 +365,7 @@ namespace Ver_1
                 MySqlCommand commandProduct = new MySqlCommand("INSERT INTO `mpmproduct` (`ProductName`) VALUES (@Name);", db.getConnection());
 
                 //заглушка
-                commandProduct.Parameters.Add("@Name", MySqlDbType.VarChar).Value = textBoxNameObject.Text; ;
+                commandProduct.Parameters.Add("@Name", MySqlDbType.VarChar).Value = textBoxNameObject.Text; 
 
                 db.OpenConnection();
 
@@ -379,7 +379,103 @@ namespace Ver_1
                     MessageBox.Show("Данные не были записаны. Такой тех.процесс уже существует");
                 }
                 db.CloseConnection();
-               
+
+                
+                DataTable tableProcessId = new DataTable();
+
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandProcessId = new MySqlCommand("SELECT idProcess FROM `mpmproduct` WHERE ProductName = @idProductName", db.getConnection());
+
+                //заглушка
+                commandProcessId.Parameters.Add("@idProductName", MySqlDbType.VarChar).Value = NameProject;
+                
+                //Выполнение запроса к бд
+                adapter.SelectCommand = commandProcessId;
+
+                adapter.Fill(tableProcessId);
+
+                if (tableProcessId.Rows.Count == 0)
+                {
+                    MessageBox.Show("Данные по объекту не найдены в бд");
+                }
+                else
+                {
+                    int a = 0;
+                    for (int rows = 0; rows < dataGridView1.Rows.Count; rows++)
+                    {
+                        
+
+                        try
+                        {
+                            int idOper = Int32.Parse(dataGridView1.Rows[rows].Cells[0].Value.ToString());
+
+                            string OperName = dataGridView1.Rows[rows].Cells[1].Value.ToString();
+
+                            string WorkerName = dataGridView1.Rows[rows].Cells[3].Value.ToString();
+
+                            string ToolName = dataGridView1.Rows[rows].Cells[4].Value.ToString();
+
+                            string DocName = dataGridView1.Rows[rows].Cells[5].Value.ToString();
+
+                            string Time = dataGridView1.Rows[rows].Cells[6].Value.ToString();
+
+                            if (Time == null)
+                            {
+                                throw new ArgumentNullException();
+                            }
+
+                            //Получения кода инструмента и названия документа
+                            MySqlCommand commandProcess = new MySqlCommand("INSERT INTO `mpmprocess` (`idProcess`, `Number`,`idOperation`, `OperName`, `DocName`, `ToolName`, `WorkerName`, `Time`) VALUES (@IdProcess,@Number, @idOper, @OperName, @DocName, @ToolName, @W, @Time)", db.getConnection());
+                           
+                            //заглушка
+                            commandProcess.Parameters.Add("@IdProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProcessId.Rows[0][0].ToString()); ;
+                            commandProcess.Parameters.Add("@Number", MySqlDbType.Int32).Value = rows+1;
+                            commandProcess.Parameters.Add("@idOper", MySqlDbType.Int32).Value = idOper;
+                            commandProcess.Parameters.Add("@OperName", MySqlDbType.VarChar).Value = OperName;
+                            commandProcess.Parameters.Add("@DocName", MySqlDbType.VarChar).Value = DocName;
+                            commandProcess.Parameters.Add("@ToolName", MySqlDbType.VarChar).Value = ToolName;
+                            commandProcess.Parameters.Add("@W", MySqlDbType.VarChar).Value = WorkerName;
+                            commandProcess.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
+
+                            db.OpenConnection();
+
+                            //проверка выполнения запроса
+                            if (commandProcess.ExecuteNonQuery() == 1)
+                            {
+                                a++;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Данные не были записаны. Такой тех.процесс уже существует");
+                            }
+                            db.CloseConnection();
+
+
+
+
+                        }
+                        catch (ArgumentNullException)
+                        {
+                            MessageBox.Show("Проверьте, что ввели все данные в таблицу");
+                        }
+                       
+
+
+                      
+
+
+                    }
+                    
+                   
+                    
+
+
+                }
+
+
+
+
+
 
             }
 

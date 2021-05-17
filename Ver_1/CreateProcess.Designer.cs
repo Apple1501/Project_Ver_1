@@ -80,9 +80,9 @@
             this.panelCreateProcess.Controls.Add(this.label1);
             this.panelCreateProcess.Controls.Add(this.textBoxNameObject);
             this.panelCreateProcess.Controls.Add(this.SaveNewProcess);
-            this.panelCreateProcess.Location = new System.Drawing.Point(3, 12);
+            this.panelCreateProcess.Location = new System.Drawing.Point(-1, -1);
             this.panelCreateProcess.Name = "panelCreateProcess";
-            this.panelCreateProcess.Size = new System.Drawing.Size(1445, 749);
+            this.panelCreateProcess.Size = new System.Drawing.Size(1449, 762);
             this.panelCreateProcess.TabIndex = 0;
             this.panelCreateProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseDown);
             this.panelCreateProcess.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseMove);
@@ -223,7 +223,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(395, 72);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1000, 525);
+            this.dataGridView1.Size = new System.Drawing.Size(944, 525);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
