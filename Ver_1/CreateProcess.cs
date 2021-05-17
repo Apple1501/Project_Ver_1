@@ -358,8 +358,16 @@ namespace Ver_1
             {
                 MessageBox.Show("Проверьте название объекта");
             }
+
             else
             {
+                //проверка, что ранее процесса по заданному объекту не было уже создано
+                if (CheckInfo(NameProject))
+                {
+                    return;
+                }
+                    
+
                 //создание нового тех. процесса в бд. Запись в таблицу связи продукта и тех процесса
                 //Получения кода инструмента и названия документа
                 MySqlCommand commandProduct = new MySqlCommand("INSERT INTO `mpmproduct` (`ProductName`) VALUES (@Name);", db.getConnection());
@@ -400,7 +408,6 @@ namespace Ver_1
                 }
                 else
                 {
-                    int a = 0;
                     for (int rows = 0; rows < dataGridView1.Rows.Count; rows++)
                     {
                         
@@ -438,19 +445,9 @@ namespace Ver_1
                             commandProcess.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
 
                             db.OpenConnection();
+                            commandProcess.ExecuteNonQuery();
 
-                            //проверка выполнения запроса
-                            if (commandProcess.ExecuteNonQuery() == 1)
-                            {
-                                a++;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Данные не были записаны. Такой тех.процесс уже существует");
-                            }
                             db.CloseConnection();
-
-
 
 
                         }
@@ -458,29 +455,43 @@ namespace Ver_1
                         {
                             MessageBox.Show("Проверьте, что ввели все данные в таблицу");
                         }
-                       
-
-
-                      
-
-
-                    }
-                    
                    
-                    
+                    }
 
+                    MessageBox.Show("Данные по тех. процессу записаны");
 
                 }
 
 
-
-
-
-
             }
 
+        }
 
+        public Boolean CheckInfo(string NameProject)
+        {
+            DataTable tableNameProduct = new DataTable();
+
+            //Получения кода инструмента и названия документа
+            MySqlCommand commandName = new MySqlCommand("SELECT idProcess FROM `mpmproduct` WHERE ProductName = @idProductName", db.getConnection());
+
+            //заглушка
+            commandName.Parameters.Add("@idProductName", MySqlDbType.VarChar).Value = NameProject;
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = commandName;
+
+            adapter.Fill(tableNameProduct);
+
+            if (tableNameProduct.Rows.Count > 0)
+            {
+                return true;
+
+            }
+            else
+                return false;
 
         }
+
+
     }
 }
