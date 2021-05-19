@@ -547,7 +547,7 @@ namespace Ver_1
                     DataTable tableProcess = new DataTable();
 
                     //Получения кода инструмента и названия документа
-                    MySqlCommand commandProcess = new MySqlCommand("SELECT* FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
+                    MySqlCommand commandProcess = new MySqlCommand("SELECT Number,idOperation,OperName,DocName,ToolName,WorkerName,Time FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
 
                     //заглушка
                     commandProcess.Parameters.Add("@idProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProduct.Rows[0][0].ToString());
@@ -589,9 +589,9 @@ namespace Ver_1
                         //
                         PdfPCell cell;
                         
-                        string[] HeaderText = {"Код тех. процесса","№","Код операции","Название операции","Документ","Инструмент","Рабочий","T(час)"};
+                        string[] HeaderText = {"№","Код операции","Название операции","Документ","Инструмент","Рабочий","T(час)"};
                         //Сначала добавляем заголовки таблицы
-                         for (int j = 0; j < 8; j++)
+                         for (int j = 0; j < 7; j++)
                          {
                             cell = new PdfPCell(new Phrase(new Phrase(HeaderText[j], font)));
                             //Фоновый цвет (необязательно, просто сделаем по красивее)

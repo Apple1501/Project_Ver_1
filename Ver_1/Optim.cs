@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,10 @@ namespace Ver_1
             InitializeComponent();
         }
 
-      
+
+        MySqlDataAdapter adapter = new MySqlDataAdapter();
+        DB db = new DB();
+
         private void label5_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -59,13 +63,39 @@ namespace Ver_1
             int PartValue = 0;
             PartValue = Int32.Parse(textBoxValuePart.Text);
 
-            if (NameProject=="" && PartValue==0)
+            if (NameProject == "" && PartValue == 0)
             {
                 MessageBox.Show("Проверьте входные данные объекта");
 
             }
 
+            else
+            {
+                //поиск объекта в базе данных по продуктам. Получаем тех. процесс для объекта 
+                DataTable tableProcessId = new DataTable();
 
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandProcessid = new MySqlCommand("SELECT idProcess FROM `mpmproduct` WHERE ProductName = @ProcessName", db.getConnection());
+
+                //заглушка
+                commandProcessid.Parameters.Add("@ProcessName", MySqlDbType.VarChar).Value = NameProject;
+                
+
+                //Выполнение запроса к бд
+                adapter.SelectCommand = commandProcessid;
+
+                adapter.Fill(tableProcessId);
+
+                if (tableProcessId.Rows.Count > 0)
+                {
+                    MessageBox.Show("Код получен");
+
+                }
+
+
+
+
+            }
 
 
 
