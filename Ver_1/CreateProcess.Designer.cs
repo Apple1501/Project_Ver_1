@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelCreateProcess = new System.Windows.Forms.Panel();
+            this.CreateDoc = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxDocName = new System.Windows.Forms.ComboBox();
@@ -56,7 +57,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNameObject = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.CreateDoc = new System.Windows.Forms.Button();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +90,17 @@
             this.panelCreateProcess.TabIndex = 0;
             this.panelCreateProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseDown);
             this.panelCreateProcess.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseMove);
+            // 
+            // CreateDoc
+            // 
+            this.CreateDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateDoc.Location = new System.Drawing.Point(6, 617);
+            this.CreateDoc.Name = "CreateDoc";
+            this.CreateDoc.Size = new System.Drawing.Size(371, 51);
+            this.CreateDoc.TabIndex = 23;
+            this.CreateDoc.Text = "Создать документ";
+            this.CreateDoc.UseVisualStyleBackColor = true;
+            this.CreateDoc.Click += new System.EventHandler(this.CreateDoc_Click);
             // 
             // label9
             // 
@@ -240,7 +251,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(395, 72);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(944, 525);
+            this.dataGridView1.Size = new System.Drawing.Size(944, 596);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -338,17 +349,6 @@
             this.SaveNewProcess.Text = "Сохранить результат";
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             this.SaveNewProcess.Click += new System.EventHandler(this.SaveNewProcess_Click);
-            // 
-            // CreateDoc
-            // 
-            this.CreateDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateDoc.Location = new System.Drawing.Point(6, 617);
-            this.CreateDoc.Name = "CreateDoc";
-            this.CreateDoc.Size = new System.Drawing.Size(371, 51);
-            this.CreateDoc.TabIndex = 23;
-            this.CreateDoc.Text = "Создать документ";
-            this.CreateDoc.UseVisualStyleBackColor = true;
-            this.CreateDoc.Click += new System.EventHandler(this.CreateDoc_Click);
             // 
             // CreateProcess
             // 

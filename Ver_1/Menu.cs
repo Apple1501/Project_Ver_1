@@ -59,5 +59,12 @@ namespace Ver_1
             CreateProcess.Show();
 
         }
+
+        private void Work_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Optim Optim = new Optim();
+            Optim.Show();
+        }
     }
 }

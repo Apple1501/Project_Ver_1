@@ -81,6 +81,7 @@
             this.Work.TabIndex = 2;
             this.Work.Text = "Планирование";
             this.Work.UseVisualStyleBackColor = false;
+            this.Work.Click += new System.EventHandler(this.Work_Click);
             // 
             // CreateNewProcess
             // 
