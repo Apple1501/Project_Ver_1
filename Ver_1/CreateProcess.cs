@@ -1,9 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +20,7 @@ namespace Ver_1
         {
             InitializeComponent();
             this.panelCreateProcess.AutoSize = true;
+            
         }
         DB db = new DB();
         
@@ -324,6 +328,9 @@ namespace Ver_1
             Application.Exit();
         }
         Point LastPoint;
+        private iTextSharp.text.Font helvetica;
+        private BaseFont helveticaBase;
+
         private void panelCreateProcess_MouseMove(object sender, MouseEventArgs e)
         {
             
@@ -496,6 +503,126 @@ namespace Ver_1
             this.Hide();
             Menu menupanel = new Menu();
             menupanel.Show();
+
+        }
+
+        //создание документа по тех процессу.
+        private void CreateDoc_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Pdf files(*.pdf)|*.pdf|All files(*.*)|*.*";
+            saveFileDialog1.Title = "Cохранение документа по тех. процессу";
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            // получаем выбранный файл
+            string filename = saveFileDialog1.FileName;
+
+            //получаем данные из базы данных
+            //берём навзание необходимого объекта 
+            string NameProject = textBoxNameObject.Text;
+            if (NameProject == "")
+            {
+                MessageBox.Show("Проверьте название объекта");
+            }
+
+            else
+            {
+                //выбираем из базы данных код тех. процесса объекта 
+                DataTable tableProduct = new DataTable();
+
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandidProcess = new MySqlCommand("SELECT idProcess FROM `mpmproduct` WHERE ProductName = @ProductName", db.getConnection());
+
+                //заглушка
+                commandidProcess.Parameters.Add("@ProductName", MySqlDbType.VarChar).Value = NameProject;
+
+                //Выполнение запроса к бд
+                adapter.SelectCommand = commandidProcess;
+
+                adapter.Fill(tableProduct);
+
+                if (tableProduct.Rows.Count > 0)
+                {
+                    //выбираем из базы данных код тех. процесса объекта 
+                    DataTable tableProcess = new DataTable();
+
+                    //Получения кода инструмента и названия документа
+                    MySqlCommand commandProcess = new MySqlCommand("SELECT* FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
+
+                    //заглушка
+                    commandProcess.Parameters.Add("@idProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProduct.Rows[0][0].ToString());
+
+                    //Выполнение запроса к бд
+                    adapter.SelectCommand = commandProcess;
+
+                    adapter.Fill(tableProcess);
+
+                    //Создаём новый документ
+                    var document = new Document(PageSize.A4, 20, 20, 30, 20);
+
+                    //определение шрифта. Иначе не увидем русский текст 
+                      string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALNBI.TTF");
+
+                      var baseFont = BaseFont.CreateFont(ttf,BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+                      var font = new iTextSharp.text.Font(baseFont, 8, iTextSharp.text.Font.NORMAL);
+
+                    //прописываем путь для документа
+                    using (var writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create)))
+                    {
+                        //открываем док
+                        document.Open();
+                        
+                        //Создаем объект таблицы и передаем в нее число столбцов таблицы из нашего датасета
+                        PdfPTable table = new PdfPTable(tableProcess.Columns.Count);
+
+                        table.DefaultCell.Padding = 1;
+                        table.WidthPercentage = 100;
+                        table.HorizontalAlignment = Element.ALIGN_LEFT;
+                        table.DefaultCell.BorderWidth = 0.5f;
+
+                        //добавляем новый заголовок
+                        document.Add(new Paragraph("Технологический процесс по объекту    " + NameProject, font));
+
+                        document.Add(new Paragraph("   "));
+
+                        //
+                        PdfPCell cell;
+                        
+                        string[] HeaderText = {"Код тех. процесса","№","Код операции","Название операции","Документ","Инструмент","Рабочий","T(час)"};
+                        //Сначала добавляем заголовки таблицы
+                         for (int j = 0; j < 8; j++)
+                         {
+                            cell = new PdfPCell(new Phrase(new Phrase(HeaderText[j], font)));
+                            //Фоновый цвет (необязательно, просто сделаем по красивее)
+                            cell.BackgroundColor = iTextSharp.text.BaseColor.LIGHT_GRAY;
+                           
+                            table.AddCell(cell);
+                            
+                         }
+
+                        //Добавляем все остальные ячейки
+                         for (int j = 0; j < tableProcess.Rows.Count; j++)
+                         {
+                             for (int k = 0; k < tableProcess.Columns.Count; k++)
+                             {
+                               
+                               table.AddCell(new Phrase(tableProcess.Rows[j][k].ToString(), font));
+                             }
+                         }
+                        //Добавляем таблицу в документ
+                        document.Add(table);
+                        document.Close();
+                        writer.Close();
+                    }
+
+                    MessageBox.Show("Документ записан");
+
+
+                }
+  
+
+            }
 
         }
     }

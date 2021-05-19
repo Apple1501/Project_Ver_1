@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelCreateProcess = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxDocName = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -55,7 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNameObject = new System.Windows.Forms.TextBox();
             this.SaveNewProcess = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
+            this.CreateDoc = new System.Windows.Forms.Button();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,7 @@
             // panelCreateProcess
             // 
             this.panelCreateProcess.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelCreateProcess.Controls.Add(this.CreateDoc);
             this.panelCreateProcess.Controls.Add(this.label9);
             this.panelCreateProcess.Controls.Add(this.label8);
             this.panelCreateProcess.Controls.Add(this.comboBoxDocName);
@@ -88,6 +90,19 @@
             this.panelCreateProcess.TabIndex = 0;
             this.panelCreateProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseDown);
             this.panelCreateProcess.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelCreateProcess_MouseMove);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label9.Location = new System.Drawing.Point(1177, 674);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(199, 25);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Вернуться в меню";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label8
             // 
@@ -324,18 +339,16 @@
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             this.SaveNewProcess.Click += new System.EventHandler(this.SaveNewProcess_Click);
             // 
-            // label9
+            // CreateDoc
             // 
-            this.label9.AutoSize = true;
-            this.label9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(1177, 674);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(199, 25);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Вернуться в меню";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
+            this.CreateDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateDoc.Location = new System.Drawing.Point(6, 617);
+            this.CreateDoc.Name = "CreateDoc";
+            this.CreateDoc.Size = new System.Drawing.Size(371, 51);
+            this.CreateDoc.TabIndex = 23;
+            this.CreateDoc.Text = "Создать документ";
+            this.CreateDoc.UseVisualStyleBackColor = true;
+            this.CreateDoc.Click += new System.EventHandler(this.CreateDoc_Click);
             // 
             // CreateProcess
             // 
@@ -383,5 +396,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Hour;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button CreateDoc;
     }
 }
