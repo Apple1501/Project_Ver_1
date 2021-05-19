@@ -118,7 +118,7 @@ namespace Ver_1
                         }
 
                         int a=0;
-                        
+
                         //поиск кода инструмента 
                         for (int i = 0; i < table.Rows.Count; i++)
                         {
@@ -138,18 +138,123 @@ namespace Ver_1
 
                             for (int j = 0; j < PartValue; j++)
                             {
-                                dataGridView1.Rows[a+j].Cells[5].Value = tableTool.Rows[0][0].ToString();
-                                
+                                dataGridView1.Rows[a + j].Cells[5].Value = tableTool.Rows[0][0].ToString();
+
                             }
                             a = a + PartValue;
-
-
-
                             tableTool.Clear();
-                           
                         }
 
-                        
+                        a = 0;
+                        //поиск кода рабочего
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            //таблица для хранения результата 
+                            DataTable tableWorker = new DataTable();
+
+                            //Получения кода инструмента и названия документа
+                            MySqlCommand commandWorker = new MySqlCommand("SELECT idWorker FROM `mpmworkerinfo` WHERE WorkerName = @Name", db.getConnection());
+
+                            //заглушка
+                            commandWorker.Parameters.Add("@Name", MySqlDbType.VarChar).Value = table.Rows[i][4].ToString();
+
+                            //Выполнение запроса к бд
+                            adapter.SelectCommand = commandWorker;
+
+                            adapter.Fill(tableWorker);
+
+                            for (int j = 0; j < PartValue; j++)
+                            {
+                                dataGridView1.Rows[a + j].Cells[7].Value = tableWorker.Rows[0][0].ToString();
+
+                            }
+                            a = a + PartValue;
+                            tableWorker.Clear();
+
+                        }
+
+                        //назначение ресурсов
+                        // dataGridView1.Rows[rows].Cells[1].Value.ToString();
+                        for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                        {
+                            int kodtool=Int32.Parse(dataGridView1.Rows[i].Cells[5].Value.ToString());
+
+                            //таблица для хранения результата 
+                            DataTable tabletool = new DataTable();
+
+                            
+                            MySqlCommand commandToolFree = new MySqlCommand("SELECT* FROM `mpmresource` WHERE idtype=@kodtool ORDER BY `mpmresource`.`hour` ASC", db.getConnection());
+
+                            //заглушка
+                            commandToolFree.Parameters.Add("@kodtool", MySqlDbType.Int32).Value = kodtool;
+
+                            //Выполнение запроса к бд
+                            adapter.SelectCommand = commandToolFree;
+
+                            adapter.Fill(tabletool);
+                            int flag = 0;
+                            //если в бд есть информация по данному объекту 
+                            if (tabletool.Rows.Count > 0)
+                            {
+                                for (int j = 0; j < tabletool.Rows.Count; j++)
+                                {
+                                    if (tabletool.Rows[j][3].Equals("free") == true)
+                                    {
+                                        MySqlCommand commandResourceChangeInfo = new MySqlCommand("UPDATE `mpmresource` SET `status`=@b,`hour`=@hour WHERE `idResource`=@idR", db.getConnection());
+
+                                        //заглушка
+                                        commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tabletool.Rows[j][0].ToString());
+
+                                        commandResourceChangeInfo.Parameters.Add("@b", MySqlDbType.VarChar).Value ="busy";
+
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString());
+
+                                        dataGridView1.Rows[i].Cells[11].Value = tabletool.Rows[j][0].ToString();
+                                        flag = 1;
+                                        db.OpenConnection();
+                                        commandResourceChangeInfo.ExecuteNonQuery();
+                                        db.CloseConnection();
+                                        break;
+
+                                    }
+
+                                }
+
+                                if (flag != 1)
+                                {
+                                    for (int j = 0; j < tabletool.Rows.Count; j++)
+                                    {
+
+                                        MySqlCommand commandResourceChangeInfo = new MySqlCommand("UPDATE `mpmresource` SET `hour`=@hour WHERE `idResource`=@idR", db.getConnection());
+
+                                        //заглушка
+                                        commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tabletool.Rows[j][0].ToString());
+
+
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tabletool.Rows[j][4].ToString());
+
+                                        dataGridView1.Rows[i].Cells[11].Value = tabletool.Rows[j][0].ToString();
+                                        flag = 0;
+                                        db.OpenConnection();
+                                        commandResourceChangeInfo.ExecuteNonQuery();
+                                        db.CloseConnection();
+                                        break;
+
+                                    }
+                                }
+                               
+                            }
+
+
+
+
+                        }
+
+
+
+
+
+
 
 
 
@@ -160,18 +265,7 @@ namespace Ver_1
                     }
 
 
-
-
-
-
-
-
-
-
                 }
-
-
-
 
             }
 
