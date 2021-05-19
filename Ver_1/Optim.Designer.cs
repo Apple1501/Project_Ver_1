@@ -41,6 +41,15 @@
             this.textBoxValuePart = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNameObject = new System.Windows.Forms.TextBox();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KodNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelOpti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -106,7 +115,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(876, 356);
+            this.textBox3.Location = new System.Drawing.Point(969, 256);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(246, 22);
             this.textBox3.TabIndex = 10;
@@ -115,7 +124,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(942, 333);
+            this.label3.Location = new System.Drawing.Point(1035, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(118, 20);
             this.label3.TabIndex = 9;
@@ -124,7 +133,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(876, 398);
+            this.button4.Location = new System.Drawing.Point(969, 298);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(246, 64);
             this.button4.TabIndex = 8;
@@ -134,7 +143,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(876, 287);
+            this.button3.Location = new System.Drawing.Point(969, 187);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(246, 43);
             this.button3.TabIndex = 7;
@@ -144,18 +153,29 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 66);
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
+            this.KodNum,
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7});
+            this.dataGridView1.Location = new System.Drawing.Point(8, 56);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(830, 589);
+            this.dataGridView1.Size = new System.Drawing.Size(955, 589);
             this.dataGridView1.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(929, 223);
+            this.label2.Location = new System.Drawing.Point(1022, 123);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(142, 20);
             this.label2.TabIndex = 4;
@@ -163,7 +183,7 @@
             // 
             // textBoxValuePart
             // 
-            this.textBoxValuePart.Location = new System.Drawing.Point(876, 246);
+            this.textBoxValuePart.Location = new System.Drawing.Point(969, 146);
             this.textBoxValuePart.Name = "textBoxValuePart";
             this.textBoxValuePart.Size = new System.Drawing.Size(246, 22);
             this.textBoxValuePart.TabIndex = 3;
@@ -172,7 +192,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(915, 166);
+            this.label1.Location = new System.Drawing.Point(1008, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(182, 20);
             this.label1.TabIndex = 2;
@@ -180,10 +200,55 @@
             // 
             // textBoxNameObject
             // 
-            this.textBoxNameObject.Location = new System.Drawing.Point(876, 198);
+            this.textBoxNameObject.Location = new System.Drawing.Point(969, 98);
             this.textBoxNameObject.Name = "textBoxNameObject";
             this.textBoxNameObject.Size = new System.Drawing.Size(246, 22);
             this.textBoxNameObject.TabIndex = 1;
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Номер";
+            this.Number.Name = "Number";
+            // 
+            // KodNum
+            // 
+            this.KodNum.HeaderText = "Код_номер";
+            this.KodNum.Name = "KodNum";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Код операции";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Название";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Инструмент";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Код_инструмента";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Рабочий ";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Код_рабочего";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Т";
+            this.Column7.Name = "Column7";
             // 
             // Optim
             // 
@@ -216,5 +281,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KodNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }

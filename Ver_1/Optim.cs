@@ -88,7 +88,85 @@ namespace Ver_1
 
                 if (tableProcessId.Rows.Count > 0)
                 {
-                    MessageBox.Show("Код получен");
+                    //получаем все данные длятех. процесса по данному объекту для формирование тех. паспорта
+                    DataTable table = new DataTable();
+
+                    //Получения кода инструмента и названия документа
+                    MySqlCommand commandProcessInfo = new MySqlCommand("SELECT Number,idOperation,OperName,ToolName,WorkerName,Time FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
+
+                    //заглушка
+                    commandProcessInfo.Parameters.Add("@idProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProcessId.Rows[0][0].ToString());
+
+                    //Выполнение запроса к бд
+                    adapter.SelectCommand = commandProcessInfo;
+
+                    adapter.Fill(table);
+
+                                        
+                    if (table.Rows.Count > 0)
+                    {
+                        //заполнение контрольной таблицы
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            for (int j = 1; j < PartValue+1; j++)
+                            {
+                                string kod = table.Rows[i][0].ToString() + "."+ j;
+                                dataGridView1.Rows.Add(table.Rows[i][0].ToString(),kod, table.Rows[i][1].ToString(), table.Rows[i][2].ToString(), table.Rows[i][3].ToString(),0,table.Rows[i][4].ToString(),0,table.Rows[i][5].ToString());
+
+                            }
+
+                        }
+
+                        int a=0;
+                        
+                        //поиск кода инструмента 
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            //таблица для хранения результата 
+                            DataTable tableTool = new DataTable();
+
+                            //Получения кода инструмента и названия документа
+                            MySqlCommand commandTool = new MySqlCommand("SELECT idTool FROM `mpmtoolinfo` WHERE ToolName = @ToolName", db.getConnection());
+
+                            //заглушка
+                            commandTool.Parameters.Add("@ToolName", MySqlDbType.VarChar).Value = table.Rows[i][3].ToString();
+
+                            //Выполнение запроса к бд
+                            adapter.SelectCommand = commandTool;
+
+                            adapter.Fill(tableTool);
+
+                            for (int j = 0; j < PartValue; j++)
+                            {
+                                dataGridView1.Rows[a+j].Cells[5].Value = tableTool.Rows[0][0].ToString();
+                                
+                            }
+                            a = a + PartValue;
+
+
+
+                            tableTool.Clear();
+                           
+                        }
+
+                        
+
+
+
+
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
 
                 }
 

@@ -318,7 +318,7 @@ namespace Ver_1
 
                 Tool = comboBoxTool.Text.ToString();
 
-                dataGridView1.Rows.Add(table.Rows[0][0].ToString(), NameOper, Place, Worker, Tool, DocName, 1);
+                dataGridView1.Rows.Add(table.Rows[0][0].ToString(), NameOper, Place, Worker, Tool, DocName, 0.5f);
             }
         }
 
