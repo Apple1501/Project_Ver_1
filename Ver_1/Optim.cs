@@ -74,7 +74,7 @@ namespace Ver_1
                 //поиск объекта в базе данных по продуктам. Получаем тех. процесс для объекта 
                 DataTable tableProcessId = new DataTable();
 
-                //Получения кода инструмента и названия документа
+                //Получения кода процесса для выбранного объекта
                 MySqlCommand commandProcessid = new MySqlCommand("SELECT idProcess FROM `mpmproduct` WHERE ProductName = @ProcessName", db.getConnection());
 
                 //заглушка
@@ -174,7 +174,7 @@ namespace Ver_1
                         }
 
                         //назначение ресурсов
-                        // dataGridView1.Rows[rows].Cells[1].Value.ToString();
+                       
                         for (int i = 0; i < dataGridView1.Rows.Count; i++)
                         {
                             int kodtool=Int32.Parse(dataGridView1.Rows[i].Cells[5].Value.ToString());
@@ -182,7 +182,6 @@ namespace Ver_1
                             //таблица для хранения результата 
                             DataTable tabletool = new DataTable();
 
-                            
                             MySqlCommand commandToolFree = new MySqlCommand("SELECT* FROM `mpmresource` WHERE idtype=@kodtool ORDER BY `mpmresource`.`hour` ASC", db.getConnection());
 
                             //заглушка
@@ -198,6 +197,7 @@ namespace Ver_1
                             {
                                 for (int j = 0; j < tabletool.Rows.Count; j++)
                                 {
+                                    //сначала назначаем свободные ресурсы 
                                     if (tabletool.Rows[j][3].Equals("free") == true)
                                     {
                                         MySqlCommand commandResourceChangeInfo = new MySqlCommand("UPDATE `mpmresource` SET `status`=@b,`hour`=@hour WHERE `idResource`=@idR", db.getConnection());
@@ -207,7 +207,7 @@ namespace Ver_1
 
                                         commandResourceChangeInfo.Parameters.Add("@b", MySqlDbType.VarChar).Value ="busy";
 
-                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString());
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tabletool.Rows[j][4].ToString());
 
                                         dataGridView1.Rows[i].Cells[11].Value = tabletool.Rows[j][0].ToString();
                                         flag = 1;
@@ -220,6 +220,7 @@ namespace Ver_1
 
                                 }
 
+                                //теперь ресурсы, которые обладают наименьшим количеством часов работы
                                 if (flag != 1)
                                 {
                                     for (int j = 0; j < tabletool.Rows.Count; j++)
@@ -245,7 +246,89 @@ namespace Ver_1
                                
                             }
 
+                        }
 
+
+                        //назначение рабочего на задачу  
+                        for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                        {
+                            //считывание кода рабочего 
+                            int kodworker = Int32.Parse(dataGridView1.Rows[i].Cells[7].Value.ToString());
+
+                            //таблица для хранения результата 
+                            DataTable tableworker = new DataTable();
+
+                            MySqlCommand commandWorkerFree = new MySqlCommand("SELECT* FROM `mpmresource` WHERE idtype=@kodworker ORDER BY `mpmresource`.`hour` ASC", db.getConnection());
+
+                            //заглушка
+                            commandWorkerFree.Parameters.Add("@kodworker", MySqlDbType.Int32).Value = kodworker;
+
+                            //Выполнение запроса к бд
+                            adapter.SelectCommand = commandWorkerFree;
+
+                            //рабочие, выбранные по данному профилю
+                            adapter.Fill(tableworker);
+
+                            int flag = 0;
+
+                            //если в бд есть информация 
+                            if (tableworker.Rows.Count > 0)
+                            {
+                                for (int j = 0; j < tableworker.Rows.Count; j++)
+                                {
+                                    if (tableworker.Rows[j][3].Equals("free") == true)
+                                    {
+                                        MySqlCommand commandResourceChangeInfo = new MySqlCommand("UPDATE `mpmresource` SET `status`=@b,`hour`=@hour WHERE `idResource`=@idR", db.getConnection());
+
+                                        //заглушка. Обновление данных. По личному коду ресурса
+                                        commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tableworker.Rows[j][0].ToString());
+                                        //замена статуса
+                                        commandResourceChangeInfo.Parameters.Add("@b", MySqlDbType.VarChar).Value = "busy";
+                                        //увеличение часов
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tableworker.Rows[j][4].ToString());
+
+                                        //код личный рабочего
+                                        dataGridView1.Rows[i].Cells[9].Value = tableworker.Rows[j][0].ToString();
+                                        //Фамилия
+                                        dataGridView1.Rows[i].Cells[10].Value = tableworker.Rows[j][2].ToString();
+                                       
+                                        flag = 1;
+                                        db.OpenConnection();
+                                        commandResourceChangeInfo.ExecuteNonQuery();
+                                        db.CloseConnection();
+                                        break;
+
+                                    }
+
+                                }
+
+                                if (flag != 1)
+                                {
+                                    for (int j = 0; j < tableworker.Rows.Count; j++)
+                                    {
+
+                                        MySqlCommand commandResourceChangeInfo = new MySqlCommand("UPDATE `mpmresource` SET `hour`=@hour WHERE `idResource`=@idR", db.getConnection());
+
+                                        //заглушка
+                                        commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tableworker.Rows[j][0].ToString());
+
+
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tableworker.Rows[j][4].ToString());
+
+                                        //код личный рабочего
+                                        dataGridView1.Rows[i].Cells[9].Value = tableworker.Rows[j][0].ToString();
+                                        //Фамилия
+                                        dataGridView1.Rows[i].Cells[10].Value = tableworker.Rows[j][2].ToString();
+                                        flag = 0;
+                                        db.OpenConnection();
+                                        commandResourceChangeInfo.ExecuteNonQuery();
+                                        db.CloseConnection();
+                                        break;
+
+                                    }
+                                }
+
+                            }
 
 
                         }
