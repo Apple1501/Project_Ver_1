@@ -249,7 +249,6 @@
             this.GetDocActiv.TabIndex = 16;
             this.GetDocActiv.Text = "Создать активную задачу\r\n";
             this.GetDocActiv.UseVisualStyleBackColor = true;
-            this.GetDocActiv.Visible = false;
             this.GetDocActiv.Click += new System.EventHandler(this.GetDocActiv_Click);
             // 
             // Optim

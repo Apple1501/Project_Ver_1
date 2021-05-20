@@ -384,15 +384,15 @@ namespace Ver_1
             {
                 //код активной задачи
                 int kod = Int32.Parse(tablekod.Rows[0][0].ToString());
-                
+
                 //номер операции
-                int idtask = Int32.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
+                string idtask = dataGridView1.Rows[i].Cells[1].Value.ToString();
 
                 //номер операции
                 int idoper= Int32.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
 
                 //название операции
-                string OperName = dataGridView1.Rows[i].Cells[1].Value.ToString();
+                string OperName = dataGridView1.Rows[i].Cells[3].Value.ToString();
 
                 // личный код рабочего  
                 int idLworker = Int32.Parse(dataGridView1.Rows[i].Cells[9].Value.ToString());
@@ -408,23 +408,32 @@ namespace Ver_1
                 string Time = dataGridView1.Rows[i].Cells[8].Value.ToString();
 
 
-                //Получения кода инструмента и названия документа
-                MySqlCommand commandProcess = new MySqlCommand("INSERT INTO `mpmprocess` (`idProcess`, `Number`,`idOperation`, `OperName`, `DocName`, `ToolName`, `WorkerName`, `Time`) VALUES (@IdProcess,@Number, @idOper, @OperName, @DocName, @ToolName, @W, @Time)", db.getConnection());
+               //Получения кода инструмента и названия документа
+                MySqlCommand commandActiveTaskInfo = new MySqlCommand("INSERT INTO `mpmtaskinfo` (`idtask`, `idnumber`, `idOper`, `OperName`, `idLWorker`, `surname`, `idLTool`, `Time`, `type`) VALUES (@Kod, @idtask, @idoper, @OperName, @idLWorker, @surname, @idKodTool, @Time, @T)", db.getConnection()); 
 
                 //заглушка
-                commandProcess.Parameters.Add("@IdProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProcessId.Rows[0][0].ToString()); ;
-                commandProcess.Parameters.Add("@Number", MySqlDbType.Int32).Value = rows + 1;
-                commandProcess.Parameters.Add("@idOper", MySqlDbType.Int32).Value = idOper;
-                commandProcess.Parameters.Add("@OperName", MySqlDbType.VarChar).Value = OperName;
-                commandProcess.Parameters.Add("@DocName", MySqlDbType.VarChar).Value = DocName;
-                commandProcess.Parameters.Add("@ToolName", MySqlDbType.VarChar).Value = ToolName;
-                commandProcess.Parameters.Add("@W", MySqlDbType.VarChar).Value = WorkerName;
-                commandProcess.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
+                commandActiveTaskInfo.Parameters.Add("@Kod", MySqlDbType.Int32).Value = kod;
+                commandActiveTaskInfo.Parameters.Add("@idtask", MySqlDbType.VarChar).Value = idtask;
+                commandActiveTaskInfo.Parameters.Add("@idoper", MySqlDbType.Int32).Value = idoper;
+                commandActiveTaskInfo.Parameters.Add("@OperName", MySqlDbType.VarChar).Value = OperName;
+                commandActiveTaskInfo.Parameters.Add("@idLWorker", MySqlDbType.VarChar).Value = idLworker;
+                commandActiveTaskInfo.Parameters.Add("@surname", MySqlDbType.VarChar).Value = surname;
+                commandActiveTaskInfo.Parameters.Add("@idKodTool", MySqlDbType.VarChar).Value = idKodTool;
+                commandActiveTaskInfo.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
+
+                if (i < number)
+                {
+                    commandActiveTaskInfo.Parameters.Add("@T", MySqlDbType.VarChar).Value = "active";
+                }
+                else
+                {
+                    commandActiveTaskInfo.Parameters.Add("@T", MySqlDbType.VarChar).Value = "ready";
+                }
 
                 db.OpenConnection();
-                commandProcess.ExecuteNonQuery();
-
+                commandActiveTaskInfo.ExecuteNonQuery();
                 db.CloseConnection();
+
             }
 
 
