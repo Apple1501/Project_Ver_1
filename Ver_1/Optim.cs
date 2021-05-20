@@ -21,6 +21,7 @@ namespace Ver_1
 
         MySqlDataAdapter adapter = new MySqlDataAdapter();
         DB db = new DB();
+        
 
         private void label5_Click(object sender, EventArgs e)
         {
@@ -35,6 +36,7 @@ namespace Ver_1
             Application.Exit();
         }
 
+       
 
         Point LastPoint;
         //двигать поле по экрану
@@ -330,19 +332,7 @@ namespace Ver_1
 
                             }
 
-
                         }
-
-
-
-
-
-
-
-
-
-
-
 
 
                     }
@@ -350,6 +340,91 @@ namespace Ver_1
 
                 }
 
+                GetDocActiv.Visible = true;
+            }
+
+        }
+
+        //формирование активной задачи 
+        private void GetDocActiv_Click(object sender, EventArgs e)
+        {
+            string NameProduct = textBoxNameObject.Text;
+            int number = 0;
+            number=Int32.Parse(textBoxValuePart.Text);
+
+            if (NameProduct == "" && number == 0)
+            {
+                MessageBox.Show("Проверьте входные данные по заказу");
+            }
+
+            MySqlCommand commandNewTask = new MySqlCommand("INSERT INTO `mpmactivetask` (`idtask`, `number`, `producttype`) VALUES(NULL, @N, @Type)", db.getConnection());
+
+            //заглушка
+            commandNewTask.Parameters.Add("@N", MySqlDbType.Int32).Value = number;
+            commandNewTask.Parameters.Add("@Type", MySqlDbType.VarChar).Value = NameProduct;
+
+            db.OpenConnection();
+            commandNewTask.ExecuteNonQuery();
+            db.CloseConnection();
+
+            MySqlCommand commandGetKodTask = new MySqlCommand("SELECT idtask FROM `mpmactivetask` WHERE number=@Num AND producttype=@Product ", db.getConnection());
+
+            //заглушка
+            commandGetKodTask.Parameters.Add("@Num", MySqlDbType.Int32).Value = number;
+            commandGetKodTask.Parameters.Add("@Product", MySqlDbType.VarChar).Value = NameProduct;
+
+            DataTable tablekod = new DataTable();
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = commandGetKodTask;
+
+            adapter.Fill(tablekod);
+
+            for (int i = 0;i < dataGridView1.Rows.Count;i++)
+            {
+                //код активной задачи
+                int kod = Int32.Parse(tablekod.Rows[0][0].ToString());
+                
+                //номер операции
+                int idtask = Int32.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
+
+                //номер операции
+                int idoper= Int32.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
+
+                //название операции
+                string OperName = dataGridView1.Rows[i].Cells[1].Value.ToString();
+
+                // личный код рабочего  
+                int idLworker = Int32.Parse(dataGridView1.Rows[i].Cells[9].Value.ToString());
+
+                //Фамили и инициалы рабочего 
+                string surname = dataGridView1.Rows[i].Cells[10].Value.ToString();
+
+                //код установки 
+                int idKodTool = Int32.Parse(dataGridView1.Rows[i].Cells[11].Value.ToString());
+
+                //продолжительность 
+                
+                string Time = dataGridView1.Rows[i].Cells[8].Value.ToString();
+
+
+                //Получения кода инструмента и названия документа
+                MySqlCommand commandProcess = new MySqlCommand("INSERT INTO `mpmprocess` (`idProcess`, `Number`,`idOperation`, `OperName`, `DocName`, `ToolName`, `WorkerName`, `Time`) VALUES (@IdProcess,@Number, @idOper, @OperName, @DocName, @ToolName, @W, @Time)", db.getConnection());
+
+                //заглушка
+                commandProcess.Parameters.Add("@IdProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProcessId.Rows[0][0].ToString()); ;
+                commandProcess.Parameters.Add("@Number", MySqlDbType.Int32).Value = rows + 1;
+                commandProcess.Parameters.Add("@idOper", MySqlDbType.Int32).Value = idOper;
+                commandProcess.Parameters.Add("@OperName", MySqlDbType.VarChar).Value = OperName;
+                commandProcess.Parameters.Add("@DocName", MySqlDbType.VarChar).Value = DocName;
+                commandProcess.Parameters.Add("@ToolName", MySqlDbType.VarChar).Value = ToolName;
+                commandProcess.Parameters.Add("@W", MySqlDbType.VarChar).Value = WorkerName;
+                commandProcess.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
+
+                db.OpenConnection();
+                commandProcess.ExecuteNonQuery();
+
+                db.CloseConnection();
             }
 
 

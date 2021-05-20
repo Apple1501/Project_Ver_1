@@ -32,15 +32,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxValuePart = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxNameObject = new System.Windows.Forms.TextBox();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KodNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +46,11 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxValuePart = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxNameObject = new System.Windows.Forms.TextBox();
+            this.GetDocActiv = new System.Windows.Forms.Button();
             this.panelOpti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -60,12 +58,10 @@
             // panelOpti
             // 
             this.panelOpti.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelOpti.Controls.Add(this.GetDocActiv);
             this.panelOpti.Controls.Add(this.label6);
             this.panelOpti.Controls.Add(this.label5);
             this.panelOpti.Controls.Add(this.label4);
-            this.panelOpti.Controls.Add(this.textBox3);
-            this.panelOpti.Controls.Add(this.label3);
-            this.panelOpti.Controls.Add(this.button4);
             this.panelOpti.Controls.Add(this.button3);
             this.panelOpti.Controls.Add(this.dataGridView1);
             this.panelOpti.Controls.Add(this.label2);
@@ -116,33 +112,6 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Планирование";
             // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(969, 256);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(254, 22);
-            this.textBox3.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(1035, 233);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Код задачи";
-            // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(969, 298);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(254, 64);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Создать активную задачу ";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -176,40 +145,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(946, 683);
             this.dataGridView1.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(1022, 123);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Объём партии";
-            // 
-            // textBoxValuePart
-            // 
-            this.textBoxValuePart.Location = new System.Drawing.Point(969, 146);
-            this.textBoxValuePart.Name = "textBoxValuePart";
-            this.textBoxValuePart.Size = new System.Drawing.Size(254, 22);
-            this.textBoxValuePart.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(1008, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Название объекта";
-            // 
-            // textBoxNameObject
-            // 
-            this.textBoxNameObject.Location = new System.Drawing.Point(969, 98);
-            this.textBoxNameObject.Name = "textBoxNameObject";
-            this.textBoxNameObject.Size = new System.Drawing.Size(254, 22);
-            this.textBoxNameObject.TabIndex = 1;
             // 
             // Number
             // 
@@ -271,6 +206,52 @@
             this.Column10.HeaderText = "Код_Установки";
             this.Column10.Name = "Column10";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(1022, 123);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Объём партии";
+            // 
+            // textBoxValuePart
+            // 
+            this.textBoxValuePart.Location = new System.Drawing.Point(969, 146);
+            this.textBoxValuePart.Name = "textBoxValuePart";
+            this.textBoxValuePart.Size = new System.Drawing.Size(254, 22);
+            this.textBoxValuePart.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(1008, 66);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Название объекта";
+            // 
+            // textBoxNameObject
+            // 
+            this.textBoxNameObject.Location = new System.Drawing.Point(969, 98);
+            this.textBoxNameObject.Name = "textBoxNameObject";
+            this.textBoxNameObject.Size = new System.Drawing.Size(254, 22);
+            this.textBoxNameObject.TabIndex = 1;
+            // 
+            // GetDocActiv
+            // 
+            this.GetDocActiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GetDocActiv.Location = new System.Drawing.Point(969, 250);
+            this.GetDocActiv.Name = "GetDocActiv";
+            this.GetDocActiv.Size = new System.Drawing.Size(254, 64);
+            this.GetDocActiv.TabIndex = 16;
+            this.GetDocActiv.Text = "Создать активную задачу\r\n";
+            this.GetDocActiv.UseVisualStyleBackColor = true;
+            this.GetDocActiv.Visible = false;
+            this.GetDocActiv.Click += new System.EventHandler(this.GetDocActiv_Click);
+            // 
             // Optim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -295,10 +276,7 @@
         private System.Windows.Forms.TextBox textBoxValuePart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxNameObject;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
@@ -314,5 +292,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.Button GetDocActiv;
     }
 }
