@@ -379,7 +379,7 @@ namespace Ver_1
             adapter.SelectCommand = commandGetKodTask;
 
             adapter.Fill(tablekod);
-
+            
             for (int i = 0;i < dataGridView1.Rows.Count;i++)
             {
                 //код активной задачи
