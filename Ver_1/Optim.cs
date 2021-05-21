@@ -550,7 +550,7 @@ namespace Ver_1
                     table.DefaultCell.BorderWidth = 0.5f;
 
                     //добавляем новый заголовок
-                    document.Add(new Paragraph("Код активной задачи  " + tablekod.Rows[0][0].ToString(), font));
+                    document.Add(new Paragraph("Код активной задачи:  " + tablekod.Rows[0][0].ToString(), font));
 
                     document.Add(new Paragraph("   "));
 
@@ -580,6 +580,14 @@ namespace Ver_1
                     }
                     //Добавляем таблицу в документ
                     document.Add(table);
+
+                    document.Add(new Paragraph("   "));
+
+                    //добавляем новый заголовок
+                    document.Add(new Paragraph("Время на выполнение задачи:  " + SumTime+"   (час)", font));
+
+                    document.Add(new Paragraph("   "));
+
                     document.Close();
                     writer.Close();
                 }
