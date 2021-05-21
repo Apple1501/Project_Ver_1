@@ -66,8 +66,9 @@ namespace Ver_1
         //оптимизация процесса. Создание плана на заказ 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            //название объекта
             string NameProject = textBoxNameObject.Text;
+            //количество объектов в заказе 
             int PartValue = 0;
             PartValue = Int32.Parse(textBoxValuePart.Text);
 
@@ -307,10 +308,6 @@ namespace Ver_1
                                         db.CloseConnection();
                                         break;
 
-
-
-
-
                                     }
 
                                 }
@@ -351,12 +348,43 @@ namespace Ver_1
 
                 }
 
+
+                //расчитать время на проект
+                int p = 0;
+                SumTime = 0;
+                int V = PartValue - 1;
+                while (p < dataGridView1.Rows.Count)
+                {
+                    int k = 1;
+
+                    //расчёт общего времени выполнения заказа 
+                    for (int j = 0; j < PartValue; j++)
+                    {
+                        int l = 1;
+                        while (l <= PartValue - j - 1)
+                        {
+                            //если у операции одинаковые рабочие
+                            if (Equals(dataGridView1.Rows[p + j].Cells[9].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[9].Value.ToString()) == true)
+                            {
+                                k = k + 1;
+
+                            }
+                            l++;
+                        }
+
+
+                    }
+                    SumTime = SumTime + float.Parse(dataGridView1.Rows[p].Cells[8].Value.ToString()) * k;
+                    p = p + PartValue;
+
+                }
+
                 GetDocActiv.Visible = true;
+
                 
             }
 
-
-            //расчёт общего времени выполнения заказа 
+            
 
         }
 
@@ -459,6 +487,10 @@ namespace Ver_1
         //формирование документа по выбранным людям и оборудованию 
         private void CreateDoc_Click(object sender, EventArgs e)
         {
+           
+
+
+
             MySqlCommand commandTaskInfo = new MySqlCommand("SELECT idnumber,idOper,OperName,idLWorker,surname,idLTool,Time FROM `mpmtaskinfo` WHERE idtask=@Task ORDER BY `mpmtaskinfo`.`idnumber` ASC", db.getConnection());
            
             //код активной задачи 
@@ -489,6 +521,9 @@ namespace Ver_1
                     MessageBox.Show("Введите название документа");
 
                 }
+
+
+
 
                 //Создаём новый документ
                 var document = new Document(PageSize.A4, 20, 20, 30, 20);

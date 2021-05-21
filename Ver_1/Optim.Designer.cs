@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelOpti = new System.Windows.Forms.Panel();
+            this.CreateDoc = new System.Windows.Forms.Button();
             this.GetDocActiv = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.textBoxValuePart = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNameObject = new System.Windows.Forms.TextBox();
-            this.CreateDoc = new System.Windows.Forms.Button();
             this.panelOpti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,18 @@
             this.panelOpti.TabIndex = 0;
             this.panelOpti.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelOpti_MouseDown);
             this.panelOpti.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelOpti_MouseMove);
+            // 
+            // CreateDoc
+            // 
+            this.CreateDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateDoc.Location = new System.Drawing.Point(969, 320);
+            this.CreateDoc.Name = "CreateDoc";
+            this.CreateDoc.Size = new System.Drawing.Size(254, 73);
+            this.CreateDoc.TabIndex = 17;
+            this.CreateDoc.Text = "Создать документ";
+            this.CreateDoc.UseVisualStyleBackColor = true;
+            this.CreateDoc.Visible = false;
+            this.CreateDoc.Click += new System.EventHandler(this.CreateDoc_Click);
             // 
             // GetDocActiv
             // 
@@ -253,18 +265,6 @@
             this.textBoxNameObject.Name = "textBoxNameObject";
             this.textBoxNameObject.Size = new System.Drawing.Size(254, 22);
             this.textBoxNameObject.TabIndex = 1;
-            // 
-            // CreateDoc
-            // 
-            this.CreateDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateDoc.Location = new System.Drawing.Point(969, 320);
-            this.CreateDoc.Name = "CreateDoc";
-            this.CreateDoc.Size = new System.Drawing.Size(254, 73);
-            this.CreateDoc.TabIndex = 17;
-            this.CreateDoc.Text = "Создать документ";
-            this.CreateDoc.UseVisualStyleBackColor = true;
-            this.CreateDoc.Visible = false;
-            this.CreateDoc.Click += new System.EventHandler(this.CreateDoc_Click);
             // 
             // Optim
             // 
