@@ -517,6 +517,13 @@ namespace Ver_1
             // получаем выбранный файл
             string filename = saveFileDialog1.FileName;
 
+            while (filename == "")
+            {
+
+                MessageBox.Show("Введите название документа");
+
+            }
+
             //получаем данные из базы данных
             //берём навзание необходимого объекта 
             string NameProject = textBoxNameObject.Text;

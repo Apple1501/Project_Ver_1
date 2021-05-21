@@ -1,9 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +24,13 @@ namespace Ver_1
 
         MySqlDataAdapter adapter = new MySqlDataAdapter();
         DB db = new DB();
-        
 
+        //код активной задачи 
+        DataTable tablekod = new DataTable();
+
+        //время выполнения заказа 
+        float SumTime = 0;
+        
         private void label5_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -35,8 +43,6 @@ namespace Ver_1
         {
             Application.Exit();
         }
-
-       
 
         Point LastPoint;
         //двигать поле по экрану
@@ -103,6 +109,7 @@ namespace Ver_1
                     adapter.SelectCommand = commandProcessInfo;
 
                     adapter.Fill(table);
+
 
                                         
                     if (table.Rows.Count > 0)
@@ -300,6 +307,10 @@ namespace Ver_1
                                         db.CloseConnection();
                                         break;
 
+
+
+
+
                                     }
 
                                 }
@@ -341,7 +352,11 @@ namespace Ver_1
                 }
 
                 GetDocActiv.Visible = true;
+                
             }
+
+
+            //расчёт общего времени выполнения заказа 
 
         }
 
@@ -367,13 +382,14 @@ namespace Ver_1
             commandNewTask.ExecuteNonQuery();
             db.CloseConnection();
 
-            MySqlCommand commandGetKodTask = new MySqlCommand("SELECT idtask FROM `mpmactivetask` WHERE number=@Num AND producttype=@Product ", db.getConnection());
+            MySqlCommand commandGetKodTask = new MySqlCommand("SELECT idtask FROM `mpmactivetask` WHERE number=@Num AND producttype=@Product ORDER BY `mpmactivetask`.`idtask` DESC", db.getConnection());
 
             //заглушка
             commandGetKodTask.Parameters.Add("@Num", MySqlDbType.Int32).Value = number;
             commandGetKodTask.Parameters.Add("@Product", MySqlDbType.VarChar).Value = NameProduct;
 
-            DataTable tablekod = new DataTable();
+            tablekod.Clear();
+
 
             //Выполнение запроса к бд
             adapter.SelectCommand = commandGetKodTask;
@@ -432,9 +448,112 @@ namespace Ver_1
 
                 db.OpenConnection();
                 commandActiveTaskInfo.ExecuteNonQuery();
-                db.CloseConnection();
+          
+            }
+
+            CreateDoc.Visible = true;
+            MessageBox.Show("Активная задача создана");
+
+        }
+
+        //формирование документа по выбранным людям и оборудованию 
+        private void CreateDoc_Click(object sender, EventArgs e)
+        {
+            MySqlCommand commandTaskInfo = new MySqlCommand("SELECT idnumber,idOper,OperName,idLWorker,surname,idLTool,Time FROM `mpmtaskinfo` WHERE idtask=@Task ORDER BY `mpmtaskinfo`.`idnumber` ASC", db.getConnection());
+           
+            //код активной задачи 
+            DataTable tableinfo = new DataTable();
+
+            //заглушка
+            commandTaskInfo.Parameters.Add("@Task", MySqlDbType.Int32).Value = Int32.Parse(tablekod.Rows[0][0].ToString());
+
+            //Выполнение запроса к бд
+            adapter.SelectCommand = commandTaskInfo;
+
+            adapter.Fill(tableinfo);
+
+            if (tableinfo.Rows.Count>0)
+            {
+                //выбор пути 
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Pdf files(*.pdf)|*.pdf|All files(*.*)|*.*";
+                saveFileDialog1.Title = "Cохранение документа по тех. процессу";
+                if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+                // получаем выбранный файл
+                string filename = saveFileDialog1.FileName;
+
+                while (filename == "")
+                {
+
+                    MessageBox.Show("Введите название документа");
+
+                }
+
+                //Создаём новый документ
+                var document = new Document(PageSize.A4, 20, 20, 30, 20);
+
+                //определение шрифта. Иначе не увидем русский текст 
+                string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALNBI.TTF");
+
+                var baseFont = BaseFont.CreateFont(ttf, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+                var font = new iTextSharp.text.Font(baseFont, 8, iTextSharp.text.Font.NORMAL);
+
+                //прописываем путь для документа
+                using (var writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create)))
+                {
+                    //открываем док
+                    document.Open();
+
+                    //Создаем объект таблицы и передаем в нее число столбцов таблицы из нашего датасета
+                    PdfPTable table = new PdfPTable(tableinfo.Columns.Count);
+
+                    table.DefaultCell.Padding = 1;
+                    table.WidthPercentage = 100;
+                    table.HorizontalAlignment = Element.ALIGN_LEFT;
+                    table.DefaultCell.BorderWidth = 0.5f;
+
+                    //добавляем новый заголовок
+                    document.Add(new Paragraph("Код активной задачи  " + tablekod.Rows[0][0].ToString(), font));
+
+                    document.Add(new Paragraph("   "));
+
+                    //
+                    PdfPCell cell;
+
+                    string[] HeaderText = { "№", "Код операции", "Название операции", "Код рабочего", "ФИО", "Код инструмента", "T(час)" };
+                    //Сначала добавляем заголовки таблицы
+                    for (int j = 0; j < 7; j++)
+                    {
+                        cell = new PdfPCell(new Phrase(new Phrase(HeaderText[j], font)));
+                        //Фоновый цвет (необязательно, просто сделаем по красивее)
+                        cell.BackgroundColor = iTextSharp.text.BaseColor.LIGHT_GRAY;
+
+                        table.AddCell(cell);
+
+                    }
+
+                    //Добавляем все остальные ячейки
+                    for (int j = 0; j < tableinfo.Rows.Count; j++)
+                    {
+                        for (int k = 0; k < tableinfo.Columns.Count; k++)
+                        {
+
+                            table.AddCell(new Phrase(tableinfo.Rows[j][k].ToString(), font));
+                        }
+                    }
+                    //Добавляем таблицу в документ
+                    document.Add(table);
+                    document.Close();
+                    writer.Close();
+                }
+
+                //открытие, созданного файла
+                System.Diagnostics.Process.Start(filename);
 
             }
+
 
 
 
