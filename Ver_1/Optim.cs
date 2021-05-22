@@ -564,8 +564,9 @@ namespace Ver_1
                         cell = new PdfPCell(new Phrase(new Phrase(HeaderText[j], font)));
                         //Фоновый цвет (необязательно, просто сделаем по красивее)
                         cell.BackgroundColor = iTextSharp.text.BaseColor.LIGHT_GRAY;
-
                         table.AddCell(cell);
+
+
 
                     }
 

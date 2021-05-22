@@ -66,6 +66,7 @@
             this.CheckWork.TabIndex = 3;
             this.CheckWork.Text = "Активные заказы";
             this.CheckWork.UseVisualStyleBackColor = false;
+            this.CheckWork.Click += new System.EventHandler(this.CheckWork_Click);
             // 
             // Work
             // 

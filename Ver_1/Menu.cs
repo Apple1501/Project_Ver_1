@@ -66,5 +66,12 @@ namespace Ver_1
             Optim Optim = new Optim();
             Optim.Show();
         }
+
+        private void CheckWork_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CheckZ checkZ = new CheckZ();
+            checkZ.Show();
+        }
     }
 }
