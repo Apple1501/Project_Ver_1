@@ -158,7 +158,40 @@ namespace Ver_1
                     db.OpenConnection();
                     commandCompleted.ExecuteNonQuery();
                     db.CloseConnection();
-                    
+
+                    int y = 0;
+                    for (int b = i+1; b < table.Rows.Count-1; b++)
+                    {
+                        //если ещё рабочий в данной задаче
+                        if (Equals(dataGridView1.Rows[b].Cells[3].Value.ToString(), LwKod) == true)
+                        {
+                            y++;
+                        }
+                    }
+                    if (y == 0)
+                    {
+                        MySqlCommand commandWorkerFree = new MySqlCommand("UPDATE `mpmresource` SET `status`=@free WHERE `idResource`=@idRes", db.getConnection());
+
+                        //заглушка
+                        commandWorkerFree.Parameters.Add("@idRes", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                        commandWorkerFree.Parameters.Add("@free", MySqlDbType.VarChar).Value = "free";
+
+                        db.OpenConnection();
+                        commandWorkerFree.ExecuteNonQuery();
+                        db.CloseConnection();
+
+                        MySqlCommand commandToolFree = new MySqlCommand("UPDATE `mpmresource` SET `status`=@free WHERE `idResource`=@idRes", db.getConnection());
+
+                        //заглушка
+                        commandToolFree.Parameters.Add("@idRes", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[5].Value.ToString());
+                        commandToolFree.Parameters.Add("@free", MySqlDbType.VarChar).Value = "free";
+
+                        db.OpenConnection();
+                        commandToolFree.ExecuteNonQuery();
+                        db.CloseConnection();
+
+                    }
+
                     if (i < table.Rows.Count && i + Int32.Parse(tablenumber.Rows[0][0].ToString())< table.Rows.Count)
                     {
                         dataGridView1.Rows[i+ Int32.Parse(tablenumber.Rows[0][0].ToString())].Cells[6].Value = "active";
@@ -202,6 +235,15 @@ namespace Ver_1
                 
                 db.OpenConnection();
                 commandDelete.ExecuteNonQuery();
+                db.CloseConnection();
+
+                MySqlCommand commandDeleteActive = new MySqlCommand("DELETE FROM `mpmactivetask` WHERE `idtask`=@idtask", db.getConnection());
+
+                //заглушка
+                commandDeleteActive.Parameters.Add("@idtask", MySqlDbType.Int32).Value = Int32.Parse(taskkod);
+
+                db.OpenConnection();
+                commandDeleteActive.ExecuteNonQuery();
                 db.CloseConnection();
 
                 MessageBox.Show("Задача выполнена. Данные удалены из базы данных");
