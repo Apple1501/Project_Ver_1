@@ -217,7 +217,7 @@ namespace Ver_1
 
                                         commandResourceChangeInfo.Parameters.Add("@b", MySqlDbType.VarChar).Value ="busy";
 
-                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tabletool.Rows[j][4].ToString());
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.VarChar).Value = (float.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + float.Parse(tabletool.Rows[j][4].ToString())).ToString();
 
                                         dataGridView1.Rows[i].Cells[11].Value = tabletool.Rows[j][0].ToString();
                                         flag = 1;
@@ -241,9 +241,8 @@ namespace Ver_1
                                         //заглушка
                                         commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tabletool.Rows[j][0].ToString());
 
-
-                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tabletool.Rows[j][4].ToString());
-
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.VarChar).Value = (float.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + float.Parse(tabletool.Rows[j][4].ToString())).ToString();
+                               
                                         dataGridView1.Rows[i].Cells[11].Value = tabletool.Rows[j][0].ToString();
                                         flag = 0;
                                         db.OpenConnection();
@@ -295,7 +294,8 @@ namespace Ver_1
                                         //замена статуса
                                         commandResourceChangeInfo.Parameters.Add("@b", MySqlDbType.VarChar).Value = "busy";
                                         //увеличение часов
-                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tableworker.Rows[j][4].ToString());
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.VarChar).Value = (float.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + float.Parse(tableworker.Rows[j][4].ToString())).ToString();
+                                            
 
                                         //код личный рабочего
                                         dataGridView1.Rows[i].Cells[9].Value = tableworker.Rows[j][0].ToString();
@@ -323,7 +323,7 @@ namespace Ver_1
                                         commandResourceChangeInfo.Parameters.Add("@idR", MySqlDbType.Int32).Value = Int32.Parse(tableworker.Rows[j][0].ToString());
 
 
-                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + Int32.Parse(tableworker.Rows[j][4].ToString());
+                                        commandResourceChangeInfo.Parameters.Add("@hour", MySqlDbType.VarChar).Value = (float.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) + float.Parse(tableworker.Rows[j][4].ToString())).ToString();
 
                                         //код личный рабочего
                                         dataGridView1.Rows[i].Cells[9].Value = tableworker.Rows[j][0].ToString();
@@ -363,8 +363,8 @@ namespace Ver_1
                         int l = 1;
                         while (l <= PartValue - j - 1)
                         {
-                            //если у операции одинаковые рабочие
-                            if (Equals(dataGridView1.Rows[p + j].Cells[9].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[9].Value.ToString()) == true)
+                            //если у операции одинаковые рабочие или одинаковые установки 
+                            if ((Equals(dataGridView1.Rows[p + j].Cells[9].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[9].Value.ToString()) == true)||(Equals(dataGridView1.Rows[p + j].Cells[11].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[11].Value.ToString()) == true))
                             {
                                 k = k + 1;
 
@@ -380,11 +380,9 @@ namespace Ver_1
                 }
 
                 GetDocActiv.Visible = true;
+                MessageBox.Show("Расчёт закончен. Ресурсы распределены");
 
-                
             }
-
-            
 
         }
 
@@ -476,7 +474,8 @@ namespace Ver_1
 
                 db.OpenConnection();
                 commandActiveTaskInfo.ExecuteNonQuery();
-          
+                db.CloseConnection();
+
             }
 
             CreateDoc.Visible = true;

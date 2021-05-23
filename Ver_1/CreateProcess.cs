@@ -623,7 +623,9 @@ namespace Ver_1
                         writer.Close();
                     }
 
-                    MessageBox.Show("Документ записан");
+                   // MessageBox.Show("Документ записан");
+                    //открытие, созданного файла
+                    System.Diagnostics.Process.Start(filename);
 
 
                 }
