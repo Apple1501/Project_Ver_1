@@ -76,6 +76,7 @@ namespace Ver_1
         //выбор операции и получения данных по выбранной операции
         private void OperNameSelected(object sender, EventArgs e)
         {
+            //получение навзание, которое было выбрано
             string selectedOperName = comboBoxNameOper.SelectedItem.ToString();
             //формируем запрос по выбранному пункту в бд
             MySqlCommand command = new MySqlCommand("SELECT idOperation FROM `mpmopername` WHERE OperName=@SOperName", db.getConnection());

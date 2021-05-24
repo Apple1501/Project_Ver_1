@@ -54,8 +54,11 @@ namespace Ver_1
 
         private void CreateNewProcess_Click(object sender, EventArgs e)
         {
+            //"прячем форму с основным меню"
             this.Hide();
+            //инициализация нового объекта класса 
             CreateProcess CreateProcess = new CreateProcess();
+            //открываем форму
             CreateProcess.Show();
 
         }

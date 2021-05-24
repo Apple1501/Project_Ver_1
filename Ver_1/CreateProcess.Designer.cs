@@ -108,11 +108,11 @@
             this.label9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(1177, 674);
+            this.label9.Location = new System.Drawing.Point(1283, 1);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(199, 25);
+            this.label9.Size = new System.Drawing.Size(69, 25);
             this.label9.TabIndex = 22;
-            this.label9.Text = "Вернуться в меню";
+            this.label9.Text = "Меню";
             this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label8
