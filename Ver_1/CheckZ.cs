@@ -160,15 +160,28 @@ namespace Ver_1
                     db.CloseConnection();
 
                     int y = 0;
-                    for (int b = i+1; b < table.Rows.Count-1; b++)
+
+                    DataTable tablewor = new DataTable();
+                    DataTable tabletool = new DataTable();
+
+                    MySqlCommand commandwor = new MySqlCommand("SELECT idLWorker,type FROM `mpmtaskinfo` WHERE idLWorker=@idW", db.getConnection());
+
+                    //заглушка
+                    commandwor.Parameters.Add("@idW", MySqlDbType.Int32).Value = LwKod;
+
+                    //Выполнение запроса к бд
+                    adapter.SelectCommand = commandwor;
+                    adapter.Fill(tablewor);
+
+                    for (int b=0;b<tablewor.Rows.Count;b++)
                     {
                         //если ещё рабочий в данной задаче
-                        if (Equals(dataGridView1.Rows[b].Cells[3].Value.ToString(), LwKod) == true)
+                        if (Equals(table.Rows[b][1].ToString(), "completed") == true)
                         {
                             y++;
                         }
                     }
-                    if (y == 0)
+                    if (y == tablewor.Rows.Count)
                     {
                         MySqlCommand commandWorkerFree = new MySqlCommand("UPDATE `mpmresource` SET `status`=@free WHERE `idResource`=@idRes", db.getConnection());
 
@@ -180,6 +193,30 @@ namespace Ver_1
                         commandWorkerFree.ExecuteNonQuery();
                         db.CloseConnection();
 
+                    }
+
+                    int d = 0;
+
+                    MySqlCommand commandtool = new MySqlCommand("SELECT idLTool,type FROM `mpmtaskinfo` WHERE idLTool=@idT", db.getConnection());
+
+                    //заглушка
+                    commandtool.Parameters.Add("@idT", MySqlDbType.Int32).Value = Int32.Parse(dataGridView1.Rows[i].Cells[5].Value.ToString());
+                      
+                    //Выполнение запроса к бд
+                    adapter.SelectCommand = commandtool;
+                    adapter.Fill(tabletool);
+
+                    for (int b = 0; b < tabletool.Rows.Count; b++)
+                    {
+                        //если ещё рабочий в данной задаче
+                        if (Equals(table.Rows[b][1].ToString(), "completed") == true)
+                        {
+                            d++;
+                        }
+                    }
+
+                    if (d == tabletool.Rows.Count)
+                    {
                         MySqlCommand commandToolFree = new MySqlCommand("UPDATE `mpmresource` SET `status`=@free WHERE `idResource`=@idRes", db.getConnection());
 
                         //заглушка
@@ -189,8 +226,8 @@ namespace Ver_1
                         db.OpenConnection();
                         commandToolFree.ExecuteNonQuery();
                         db.CloseConnection();
-
                     }
+
 
                     if (i < table.Rows.Count && i + Int32.Parse(tablenumber.Rows[0][0].ToString())< table.Rows.Count)
                     {
