@@ -155,8 +155,11 @@ namespace Ver_1
                     commandCompleted.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
                     commandCompleted.Parameters.Add("@type", MySqlDbType.VarChar).Value = "completed";
                     
+                    //поключние к БД
                     db.OpenConnection();
+                    //выполнение запроса
                     commandCompleted.ExecuteNonQuery();
+                    //разрыв соединения
                     db.CloseConnection();
 
                     int y = 0;
