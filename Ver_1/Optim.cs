@@ -352,7 +352,7 @@ namespace Ver_1
                 //расчитать время на проект
                 int p = 0;
                 SumTime = 0;
-                int V = PartValue - 1;
+                
                 while (p < dataGridView1.Rows.Count)
                 {
                     int k = 1;
@@ -361,15 +361,24 @@ namespace Ver_1
                     for (int j = 0; j < PartValue; j++)
                     {
                         int l = 1;
-                        while (l <= PartValue - j - 1)
+                        while (l <= PartValue - j-1)
                         {
+                            if (k == PartValue)
+                            {
+                                break;
+                            }
                             //если у операции одинаковые рабочие или одинаковые установки 
                             if ((Equals(dataGridView1.Rows[p + j].Cells[9].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[9].Value.ToString()) == true)||(Equals(dataGridView1.Rows[p + j].Cells[11].Value.ToString(), dataGridView1.Rows[p + j + l].Cells[11].Value.ToString()) == true))
                             {
-                                k = k + 1;
+                              k = k + 1;
 
                             }
                             l++;
+                        }
+
+                        if (k == PartValue)
+                        {
+                            break;
                         }
 
 
