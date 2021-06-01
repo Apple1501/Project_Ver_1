@@ -44,6 +44,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonPlusOper = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxNameOper = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxNameObject = new System.Windows.Forms.TextBox();
+            this.SaveNewProcess = new System.Windows.Forms.Button();
             this.IDKODOPE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,12 +56,8 @@
             this.Tool = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DocName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxNameOper = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxNameObject = new System.Windows.Forms.TextBox();
-            this.SaveNewProcess = new System.Windows.Forms.Button();
             this.panelCreateProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -247,6 +248,7 @@
             this.Tool,
             this.DocName,
             this.Hour,
+            this.Column1,
             this.Delete});
             this.dataGridView1.Location = new System.Drawing.Point(395, 72);
             this.dataGridView1.Name = "dataGridView1";
@@ -254,53 +256,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(944, 596);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // IDKODOPE
-            // 
-            this.IDKODOPE.HeaderText = "Код операции";
-            this.IDKODOPE.Name = "IDKODOPE";
-            this.IDKODOPE.Width = 90;
-            // 
-            // NameOp
-            // 
-            this.NameOp.HeaderText = "Название операции";
-            this.NameOp.Name = "NameOp";
-            this.NameOp.Width = 150;
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Участок";
-            this.Time.Name = "Time";
-            this.Time.Width = 150;
-            // 
-            // Worker
-            // 
-            this.Worker.HeaderText = "Рабочий";
-            this.Worker.Name = "Worker";
-            // 
-            // Tool
-            // 
-            this.Tool.HeaderText = "Ресурс";
-            this.Tool.Name = "Tool";
-            // 
-            // DocName
-            // 
-            this.DocName.HeaderText = "Документ";
-            this.DocName.Name = "DocName";
-            this.DocName.Width = 80;
-            // 
-            // Hour
-            // 
-            this.Hour.HeaderText = "Длительность(час)";
-            this.Hour.Name = "Hour";
-            this.Hour.Width = 145;
-            // 
-            // Delete
-            // 
-            this.Delete.HeaderText = "Удалить";
-            this.Delete.Name = "Delete";
-            this.Delete.Text = "Удалить";
-            this.Delete.ToolTipText = "Удалить";
             // 
             // label2
             // 
@@ -350,6 +305,59 @@
             this.SaveNewProcess.UseVisualStyleBackColor = true;
             this.SaveNewProcess.Click += new System.EventHandler(this.SaveNewProcess_Click);
             // 
+            // IDKODOPE
+            // 
+            this.IDKODOPE.HeaderText = "Код операции";
+            this.IDKODOPE.Name = "IDKODOPE";
+            this.IDKODOPE.Width = 90;
+            // 
+            // NameOp
+            // 
+            this.NameOp.HeaderText = "Название операции";
+            this.NameOp.Name = "NameOp";
+            this.NameOp.Width = 150;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Участок";
+            this.Time.Name = "Time";
+            this.Time.Width = 150;
+            // 
+            // Worker
+            // 
+            this.Worker.HeaderText = "Рабочий";
+            this.Worker.Name = "Worker";
+            // 
+            // Tool
+            // 
+            this.Tool.HeaderText = "Ресурс";
+            this.Tool.Name = "Tool";
+            // 
+            // DocName
+            // 
+            this.DocName.HeaderText = "Документ";
+            this.DocName.Name = "DocName";
+            this.DocName.Width = 80;
+            // 
+            // Hour
+            // 
+            this.Hour.HeaderText = "Длительность(час)";
+            this.Hour.Name = "Hour";
+            this.Hour.Width = 145;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Описание";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 200;
+            // 
+            // Delete
+            // 
+            this.Delete.HeaderText = "Удалить";
+            this.Delete.Name = "Delete";
+            this.Delete.Text = "Удалить";
+            this.Delete.ToolTipText = "Удалить";
+            // 
             // CreateProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -387,6 +395,8 @@
         private System.Windows.Forms.ComboBox comboBoxDocName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button CreateDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDKODOPE;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
@@ -394,8 +404,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tool;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hour;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button CreateDoc;
     }
 }

@@ -78,6 +78,7 @@ namespace Ver_1
         {
             //получение навзание, которое было выбрано
             string selectedOperName = comboBoxNameOper.SelectedItem.ToString();
+
             //формируем запрос по выбранному пункту в бд
             MySqlCommand command = new MySqlCommand("SELECT idOperation FROM `mpmopername` WHERE OperName=@SOperName", db.getConnection());
             //заглушка
@@ -319,7 +320,7 @@ namespace Ver_1
 
                 Tool = comboBoxTool.Text.ToString();
 
-                dataGridView1.Rows.Add(table.Rows[0][0].ToString(), NameOper, Place, Worker, Tool, DocName, 0.5f);
+                dataGridView1.Rows.Add(table.Rows[0][0].ToString(), NameOper, Place, Worker, Tool, DocName, 0.5f,"-");
             }
         }
 
@@ -433,13 +434,17 @@ namespace Ver_1
 
                             string Time = dataGridView1.Rows[rows].Cells[6].Value.ToString();
 
+                            string Com = dataGridView1.Rows[rows].Cells[7].Value.ToString();
+
                             if (Time == null)
                             {
                                 throw new ArgumentNullException();
                             }
 
+
+
                             //Получения кода инструмента и названия документа
-                            MySqlCommand commandProcess = new MySqlCommand("INSERT INTO `mpmprocess` (`idProcess`, `Number`,`idOperation`, `OperName`, `DocName`, `ToolName`, `WorkerName`, `Time`) VALUES (@IdProcess,@Number, @idOper, @OperName, @DocName, @ToolName, @W, @Time)", db.getConnection());
+                            MySqlCommand commandProcess = new MySqlCommand("INSERT INTO `mpmprocess` (`idProcess`, `Number`,`idOperation`, `OperName`, `DocName`, `ToolName`, `WorkerName`, `Time`,`Comment`) VALUES (@IdProcess,@Number, @idOper, @OperName, @DocName, @ToolName, @W, @Time,@Com)", db.getConnection());
                            
                             //заглушка
                             commandProcess.Parameters.Add("@IdProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProcessId.Rows[0][0].ToString()); ;
@@ -450,6 +455,7 @@ namespace Ver_1
                             commandProcess.Parameters.Add("@ToolName", MySqlDbType.VarChar).Value = ToolName;
                             commandProcess.Parameters.Add("@W", MySqlDbType.VarChar).Value = WorkerName;
                             commandProcess.Parameters.Add("@Time", MySqlDbType.VarChar).Value = Time;
+                            commandProcess.Parameters.Add("@Com", MySqlDbType.VarChar).Value = Com;
 
                             db.OpenConnection();
                             commandProcess.ExecuteNonQuery();
@@ -555,7 +561,7 @@ namespace Ver_1
                     DataTable tableProcess = new DataTable();
 
                     //Получения кода инструмента и названия документа
-                    MySqlCommand commandProcess = new MySqlCommand("SELECT Number,idOperation,OperName,DocName,ToolName,WorkerName,Time FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
+                    MySqlCommand commandProcess = new MySqlCommand("SELECT Number,idOperation,OperName,DocName,ToolName,WorkerName,Time,Comment FROM `mpmprocess` WHERE idProcess = @idProcess", db.getConnection());
 
                     //заглушка
                     commandProcess.Parameters.Add("@idProcess", MySqlDbType.Int32).Value = Int32.Parse(tableProduct.Rows[0][0].ToString());
@@ -597,9 +603,9 @@ namespace Ver_1
                         //
                         PdfPCell cell;
                         
-                        string[] HeaderText = {"№","Код операции","Название операции","Документ", "Оборудование", "Рабочий","T(час)"};
+                        string[] HeaderText = {"№","Код операции","Название операции","Документ", "Оборудование", "Рабочий","T(час)","Описание"};
                         //Сначала добавляем заголовки таблицы
-                         for (int j = 0; j < 7; j++)
+                         for (int j = 0; j < 8; j++)
                          {
                             cell = new PdfPCell(new Phrase(new Phrase(HeaderText[j], font)));
                             //Фоновый цвет (необязательно, просто сделаем по красивее)

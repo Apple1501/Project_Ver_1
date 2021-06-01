@@ -157,8 +157,10 @@ namespace Ver_1
                     
                     //поключние к БД
                     db.OpenConnection();
+                    
                     //выполнение запроса
                     commandCompleted.ExecuteNonQuery();
+                    
                     //разрыв соединения
                     db.CloseConnection();
 
