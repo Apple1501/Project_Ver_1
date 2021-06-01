@@ -591,7 +591,7 @@ namespace Ver_1
                         PdfPTable table = new PdfPTable(tableProcess.Columns.Count);
 
                         table.DefaultCell.Padding = 1;
-                        table.WidthPercentage = 100;
+                        //table.WidthPercentage = 110;
                         table.HorizontalAlignment = Element.ALIGN_LEFT;
                         table.DefaultCell.BorderWidth = 0.5f;
 
@@ -614,13 +614,15 @@ namespace Ver_1
                             table.AddCell(cell);
                             
                          }
+                        float[] column = {15,50,120,60,120,90,40,120};
 
+                        table.SetTotalWidth(column);
                         //Добавляем все остальные ячейки
-                         for (int j = 0; j < tableProcess.Rows.Count; j++)
+                        for (int j = 0; j < tableProcess.Rows.Count; j++)
                          {
                              for (int k = 0; k < tableProcess.Columns.Count; k++)
-                             {
-                               
+                            {
+                                    
                                table.AddCell(new Phrase(tableProcess.Rows[j][k].ToString(), font));
                              }
                          }
